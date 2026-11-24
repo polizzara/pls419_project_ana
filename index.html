@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ana · Күн-түн демей, жаныңда | an AI assistant for Kazakhstan's mothers</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='31' fill='%231C8FC9'/%3E%3Cpath d='M17 49 A17 17 0 1 1 47 41' fill='none' stroke='%23F3F6F7' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='41' cy='17' r='5.5' fill='%23F3F6F7'/%3E%3Ccircle cx='31' cy='36' r='8' fill='%23E2A70B'/%3E%3C/svg%3E">
+<meta name="description" content="PLS419 semester project: an AI triage assistant for pregnant women and new mothers in Kazakhstan, and what it would cost.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;600;700;800&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F3F6F7; --ink:#10263A; --ink-2:#3B5163; --mist:#C9D6DC; --mist-2:#E3EAED;
+  --sky:#1C8FC9; --sky-soft:#D6EBF6; --gold:#E2A70B; --gold-soft:#FBEFC8; --red:#C93A33; --red-soft:#F7DAD7;
+  --display:"Rubik", "Golos Text", system-ui, sans-serif;
+  --body:"Golos Text", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --measure:40rem;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:115%}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--sky);text-underline-offset:2px}
+a:focus-visible,button:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:4px}
+h1,h2,h3{font-family:var(--display);line-height:1.12;margin:0;letter-spacing:-0.01em}
+h2{font-size:clamp(1.7rem,3.4vw,2.5rem);font-weight:800;margin-bottom:1.2rem}
+h3{font-size:1.12rem;font-weight:600;margin:2.2rem 0 .6rem}
+p{margin:0 0 1rem}
+sup{line-height:0}
+sup a{text-decoration:none;font-size:.72em;font-weight:600;padding:0 1px}
+.wrap{max-width:76rem;margin:0 auto;padding:0 1.5rem}
+.prose{max-width:var(--measure)}
+.lede{font-size:1.2rem;line-height:1.55;color:var(--ink-2)}
+
+/* nav */
+.topnav{position:sticky;top:0;z-index:20;background:rgba(243,246,247,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--mist)}
+.topnav .wrap{display:flex;gap:1.1rem;align-items:center;height:3.2rem;overflow-x:auto;white-space:nowrap;font-size:.92rem}
+.topnav a{color:var(--ink-2);text-decoration:none}
+.topnav a:hover{color:var(--ink)}
+.topnav .brand{font-family:var(--display);font-weight:800;color:var(--ink);margin-right:auto}
+
+/* hero */
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,22rem);gap:3rem;align-items:start}
+[id]{scroll-margin-top:4.5rem}
+@media (max-width:860px){.hero-grid{grid-template-columns:1fr}.hero-phone{max-width:22rem}}
+.wordmark{display:flex;align-items:center;gap:1.1rem;margin-bottom:1.6rem}
+.wordmark span{font-family:var(--display);font-weight:800;font-size:3.6rem;letter-spacing:-.02em;line-height:1}
+.wordmark .logo{width:6.2rem;height:6.2rem}
+.logo{width:3.4rem;height:3.4rem;flex:none}
+.logo.sm{width:1.6rem;height:1.6rem;vertical-align:-6px;margin-right:.45rem}
+.logo.md{width:2.1rem;height:2.1rem}
+.hero-phone .phone{min-height:0;box-shadow:0 18px 40px -18px rgba(16,38,58,.35)}
+.anim .hero-phone .phone{animation:float 6s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.anim .hm{opacity:0;transform:translateY(8px);animation:pop .45s ease-out forwards}
+.anim .hm:nth-child(1){animation-delay:.4s}.anim .hm:nth-child(2){animation-delay:1.6s}.anim .hm:nth-child(3){animation-delay:2.8s}.anim .hm:nth-child(4){animation-delay:4s}.anim .hm:nth-child(5){animation-delay:5.2s}
+@keyframes pop{to{opacity:1;transform:none}}
+.hero{padding:3rem 0 3rem}
+.hero h1{font-size:clamp(2.2rem,5.6vw,4.2rem);font-weight:800;letter-spacing:-0.02em;max-width:14ch}
+.kicker{font-family:var(--display);font-weight:600;font-size:1.15rem;color:var(--sky);margin:.7rem 0 0}
+.hero .sub{margin-top:1.2rem;max-width:36rem;font-size:1.2rem;color:var(--ink-2)}
+.timeline{margin-top:3rem}
+.timeline svg{width:100%;height:auto;display:block;overflow:visible}
+.tl-readout{display:flex;flex-wrap:wrap;gap:.4rem 2.5rem;margin-top:1.2rem;align-items:baseline}
+.tl-big{font-family:var(--display);font-weight:800;font-size:clamp(2.2rem,5vw,3.4rem);color:var(--gold);line-height:1}
+.tl-note{max-width:30rem;color:var(--ink-2);font-size:.98rem}
+.small{font-size:.9rem;color:var(--ink-2)}
+
+/* sections */
+section.chapter{padding:4.5rem 0;border-top:1px solid var(--mist)}
+.secnum{font-family:var(--display);font-weight:600;color:var(--sky);font-size:1rem;margin-bottom:.6rem}
+.grid2{display:grid;grid-template-columns:minmax(0,var(--measure)) minmax(0,1fr);gap:3rem;align-items:start}
+@media (max-width:900px){.grid2{grid-template-columns:1fr;gap:1.5rem}}
+.aside{border-left:3px solid var(--gold);padding:.2rem 0 .2rem 1rem;font-size:.95rem;color:var(--ink-2)}
+.aside strong{color:var(--ink)}
+.question{font-family:var(--display);font-weight:600;font-size:clamp(1.2rem,2.3vw,1.6rem);line-height:1.3;margin:2rem 0;max-width:46rem}
+
+/* figures */
+figure{margin:2.5rem 0;background:#fff;border:1px solid var(--mist);border-radius:14px;padding:1.4rem 1.4rem 1.1rem}
+figcaption{font-size:.92rem;color:var(--ink-2);margin-top:.9rem;max-width:52rem}
+.fig-title{font-weight:600;font-size:1.02rem;margin-bottom:.25rem}
+.fig-sub{font-size:.9rem;color:var(--ink-2);margin-bottom:1rem}
+.legend{display:flex;flex-wrap:wrap;gap:1.2rem;font-size:.85rem;color:var(--ink-2);margin-bottom:.6rem}
+.sw{display:inline-block;width:.8rem;height:.8rem;border-radius:50%;margin-right:.35rem;vertical-align:-1px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(8.4rem,1fr));gap:.45rem}
+.tile{border-radius:8px;padding:.55rem .6rem;font-size:.82rem;line-height:1.25;min-height:3.6rem;display:flex;flex-direction:column;justify-content:space-between}
+.tile b{font-weight:600}
+.t-none{background:repeating-linear-gradient(135deg,var(--red-soft) 0 6px,#fff 6px 10px);border:1px solid #E9B4AF}
+.t-warn{background:var(--gold-soft);border:1px solid #EFD487}
+.t-ok{background:var(--sky-soft);border:1px solid #A9D3EA}
+.tally{display:flex;gap:2rem;flex-wrap:wrap;margin:1rem 0 .2rem}
+.tally div{font-size:.9rem;color:var(--ink-2)}
+.tally strong{display:block;font-family:var(--display);font-size:1.8rem;color:var(--ink);line-height:1.1}
+
+/* scheme */
+.scheme svg{width:100%;height:auto;display:block}
+.never{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+.never span{border:1px dashed var(--red);color:var(--red);border-radius:999px;padding:.25rem .8rem;font-size:.85rem}
+
+/* chat demo */
+.demo{display:grid;grid-template-columns:minmax(0,22rem) minmax(0,1fr);gap:1.6rem;margin:2.5rem 0}
+@media (max-width:820px){.demo{grid-template-columns:1fr}}
+.phone{background:#fff;border:1px solid var(--mist);border-radius:28px;padding:1rem;min-height:30rem;display:flex;flex-direction:column}
+.phone-head{display:flex;align-items:center;gap:.6rem;padding-bottom:.7rem;border-bottom:1px solid var(--mist-2);margin-bottom:.8rem}
+.avatar{width:2.1rem;height:2.1rem;border-radius:50%;background:var(--sky);color:#fff;font-family:var(--display);font-weight:800;display:grid;place-items:center;font-size:.9rem}
+.msgs{flex:1;display:flex;flex-direction:column;gap:.55rem;font-size:.93rem}
+.msg{max-width:88%;padding:.55rem .75rem;border-radius:14px;line-height:1.4}
+.msg.me{align-self:flex-end;background:var(--ink);color:#fff;border-bottom-right-radius:4px}
+.msg.bot{align-self:flex-start;background:var(--mist-2);border-bottom-left-radius:4px}
+.msg.bot.amber{background:var(--gold-soft)}
+.msg.bot.red{background:var(--red-soft);border:1px solid #E9B4AF}
+.msg .tag{display:block;font-size:.75rem;font-weight:600;margin-bottom:.2rem}
+.demo-controls{display:flex;flex-direction:column;gap:.7rem}
+.demo-controls button{font:inherit;text-align:left;background:#fff;border:1px solid var(--mist);border-radius:12px;padding:.8rem 1rem;cursor:pointer;color:var(--ink)}
+.demo-controls button[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 4px 0 0 var(--ink)}
+.backstage{border:1px solid var(--mist);border-radius:12px;background:#fff;padding:1rem;font-size:.9rem}
+.backstage ol{margin:.4rem 0 0;padding-left:1.2rem}
+.backstage li{margin:.25rem 0;opacity:.25;transition:opacity .4s}
+.backstage li.on{opacity:1}
+@media (prefers-reduced-motion: reduce){.backstage li{transition:none}}
+
+/* visits figure */
+.visits{display:grid;gap:.9rem}
+.vrow{display:grid;grid-template-columns:11rem 1fr;gap:1rem;align-items:center}
+@media (max-width:600px){.vrow{grid-template-columns:1fr;gap:.3rem}}
+.vdots{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.vdots i{width:14px;height:14px;border-radius:50%;background:var(--sky)}
+.vdots .gapday{width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:.9}
+.calc{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:1.2rem 2.4rem;margin-top:1.4rem;background:#EEF5F9;border-radius:14px;padding:1.3rem 1.5rem}
+@media (max-width:860px){.calc{grid-template-columns:1fr}}
+.calc-in label{display:grid;grid-template-columns:1fr auto;column-gap:1rem;align-items:baseline;font-size:.88rem;color:var(--ink-2);margin-bottom:.9rem}
+.calc-in output{font-family:var(--display);font-weight:700;color:var(--ink);white-space:nowrap}
+.calc-in input{grid-column:1/-1}
+.calc-in input{display:block;width:100%;accent-color:var(--sky);margin-top:.3rem}
+.calc-out{display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-content:start}
+.calc-out div{font-size:.85rem;color:var(--ink-2);background:#fff;border-radius:10px;padding:.8rem .9rem}
+.calc-out strong{display:block;font-family:var(--display);font-size:1.6rem;color:var(--ink);line-height:1.1}
+.calc-note{grid-column:1/-1;margin:0}
+@media (max-width:700px){.tablewrap{overflow-x:auto}figure > table{display:block;overflow-x:auto}}
+.kpis{display:flex;flex-wrap:wrap;gap:2.2rem;margin-top:1.2rem}
+.kpis div{font-size:.88rem;color:var(--ink-2);max-width:14rem}
+.kpis strong{display:block;font-family:var(--display);font-size:1.7rem;color:var(--ink);line-height:1.1}
+
+/* today vs ana */
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+@media (max-width:820px){.vs{grid-template-columns:1fr}}
+.phone.generic .avatar{background:#8A99A6}
+.vs .phone{min-height:26rem}
+.notes{display:flex;flex-direction:column;gap:.35rem;margin-top:.7rem}
+.note{font-size:.82rem;padding:.25rem .55rem;border-radius:6px;opacity:0;transform:translateY(4px);transition:opacity .4s,transform .4s}
+.note.show{opacity:1;transform:none}
+.note.bad{background:var(--red-soft);color:#7A1F1A}
+.note.good{background:var(--sky-soft);color:#0B4A6B}
+@media (prefers-reduced-motion: reduce){.note{transition:none;transform:none}}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0 1.2rem}
+.chips button{font:inherit;font-size:.92rem;border:1px solid var(--mist);background:#fff;border-radius:999px;padding:.4rem 1rem;cursor:pointer;color:var(--ink)}
+.chips button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.typing{display:inline-flex;gap:3px}
+.typing i{width:6px;height:6px;border-radius:50%;background:#8A99A6;animation:blink 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes blink{0%,100%{opacity:.25}50%{opacity:1}}
+
+/* compare table */
+.yes{color:#0F7A4A;font-weight:600}.no{color:var(--red);font-weight:600}.part{color:#9A6B00;font-weight:600}
+.cmp td:first-child{font-weight:500}
+.cmp th:last-child,.cmp td:last-child{background:var(--sky-soft)}
+.cmp td{text-align:center}.cmp td:first-child,.cmp th:first-child{text-align:left}
+.tablewrap{overflow-x:auto}
+
+/* learn */
+.learn{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) auto minmax(0,1fr);gap:.7rem;align-items:stretch}
+@media (max-width:900px){.learn{grid-template-columns:1fr 1fr}.learn .arrow{display:none}}
+.ing{border:1px solid var(--mist);border-left:4px solid var(--gold);border-radius:4px 10px 10px 4px;padding:.7rem .8rem;font-size:.88rem;background:#fff}
+.ing b{display:block;font-size:.95rem;margin-bottom:.2rem}
+.learn .arrow{align-self:center;font-size:1.6rem;color:var(--ink-2)}
+.learn .out{background:var(--ink);color:#fff;border-radius:12px;padding:.9rem;font-size:.9rem;display:flex;flex-direction:column;justify-content:center}
+.learn .out b{font-family:var(--display);font-size:1.1rem;margin-bottom:.3rem}
+
+/* stepper */
+.stepper{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,24rem);gap:1.6rem;align-items:start}
+@media (max-width:860px){.stepper{grid-template-columns:1fr}}
+.steplist{list-style:none;margin:0;padding:0;border-left:2px solid var(--mist)}
+.steplist li{padding:.55rem 0 .55rem 1.1rem;position:relative;color:var(--ink-2);cursor:pointer}
+.steplist li::before{content:"";position:absolute;left:-7px;top:.95rem;width:12px;height:12px;border-radius:50%;background:var(--mist);border:2px solid var(--paper)}
+.steplist li.active{color:var(--ink)}
+.steplist li.active::before{background:var(--red)}
+.steplist li.done::before{background:var(--sky)}
+.steplist time{font-family:var(--display);font-size:.85rem;font-weight:600;margin-right:.5rem}
+.screen{background:#fff;border:1px solid var(--mist);border-radius:18px;padding:1.1rem;min-height:17rem}
+.screen .who{font-size:.8rem;color:var(--ink-2);margin-bottom:.6rem}
+.card-case{border:1px solid #E9B4AF;border-radius:10px;padding:.8rem;font-size:.88rem;background:#FFF8F7}
+.card-case dt{font-weight:600;margin-top:.4rem}.card-case dd{margin:0;color:var(--ink-2)}
+.stepbtns{display:flex;gap:.6rem;margin-top:1rem}
+.stepbtns button,.quiz button{font:inherit;border:1px solid var(--mist);background:#fff;border-radius:10px;padding:.5rem 1rem;cursor:pointer;color:var(--ink)}
+.stepbtns button.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* quiz */
+.quiz{display:grid;grid-template-columns:repeat(auto-fill,minmax(16rem,1fr));gap:1rem}
+.q{background:#fff;border:1px solid var(--mist);border-radius:14px;padding:1rem;display:flex;flex-direction:column;gap:.7rem}
+.q p{margin:0;font-size:.95rem}
+.q .opts{display:flex;gap:.4rem;flex-wrap:wrap}
+.q .opts button{padding:.35rem .8rem;font-size:.88rem}
+.q .opts button[data-v="green"]{border-color:#9FD0B6}.q .opts button[data-v="amber"]{border-color:#EFD487}.q .opts button[data-v="red"]{border-color:#E9B4AF}
+.q .ans{font-size:.86rem;color:var(--ink-2);display:none}
+.q.answered .ans{display:block}
+.q.right{border-color:#0F7A4A}.q.wrong{border-color:var(--red)}
+.score{font-family:var(--display);font-weight:600;margin:.4rem 0 1rem}
+
+/* motion */
+.clock{font-family:var(--display);font-weight:800;font-size:2.4rem;color:var(--ink);margin-bottom:.5rem;letter-spacing:-.02em}
+.clock.tick{animation:tick .35s ease-out}
+.nightpanel{display:flex;align-items:center;gap:1rem;border-radius:18px;padding:.8rem 1rem;margin-bottom:.8rem;background:#DCEFF9;color:var(--ink);transition:background .8s,color .8s}
+.nightpanel.night{background:var(--ink);color:#fff}
+.nightpanel .clock{margin:0;color:inherit}
+.daypart{font-size:.9rem;opacity:.8}
+.aclock{width:5.2rem;height:5.2rem;flex:none}
+.aclock .face{fill:#fff;stroke:var(--mist);stroke-width:2;transition:fill .8s}
+.nightpanel.night .aclock .face{fill:#1B3A52;stroke:#3B5163}
+.aclock .ticks line{stroke:currentColor;stroke-width:2;opacity:.6}
+.aclock #hh,.aclock #mh{stroke:currentColor;stroke-linecap:round;transform-box:view-box;transform-origin:50px 50px;transition:transform 1.4s cubic-bezier(.3,.7,.3,1)}
+.aclock #mh{stroke:var(--gold)}
+.aclock .pin{fill:var(--gold)}
+@media (prefers-reduced-motion: reduce){.aclock #hh,.aclock #mh,.nightpanel{transition:none}}
+@keyframes tick{0%{transform:translateY(-8px);opacity:.2}100%{transform:none;opacity:1}}
+.anim .tiles .tile{opacity:0;transform:scale(.9);transition:opacity .45s,transform .45s}
+.anim .tiles.in .tile{opacity:1;transform:none}
+.anim .receipt .line,.anim .receipt .total{opacity:0;transform:translateY(-8px);transition:opacity .4s,transform .4s}
+.anim .receipt.in .line,.anim .receipt.in .total{opacity:1;transform:none}
+.anim .receipt:not(.in) .meter i{background:var(--mist-2)!important}
+.meter i{transition:background .35s}
+.anim .verdict .stamp{opacity:0;transform:scale(2.4) rotate(-12deg)}
+.anim .verdict.in .stamp{animation:thump .55s cubic-bezier(.2,1.6,.4,1) forwards}
+@keyframes thump{0%{opacity:0;transform:scale(2.4) rotate(-12deg)}100%{opacity:1;transform:scale(1) rotate(-2deg)}}
+.anim .verdict ol li{opacity:0;transform:translateX(-10px);transition:opacity .4s,transform .4s}
+.anim .verdict.in ol li{opacity:1;transform:none}
+.anim .vdots i{opacity:.12;transition:opacity .25s,transform .25s}
+.anim .vdots.in i{opacity:1}
+.anim .learn > *{opacity:0;transform:translateY(10px);transition:opacity .45s,transform .45s}
+.anim .learn.in > *{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.packets{display:none}}
+
+/* visit summary + meme */
+.memo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1.4rem;align-items:start}
+@media (max-width:860px){.memo{grid-template-columns:1fr}}
+.meme{display:grid;grid-template-columns:1fr 1fr;border:2px solid var(--ink);border-radius:14px;overflow:hidden;background:#fff}
+.meme > div{padding:1rem;min-height:15rem}
+.meme > div + div{border-left:2px solid var(--ink);background:var(--gold-soft)}
+.meme h4{font-family:var(--display);font-size:.95rem;margin:0 0 .7rem}
+.meme ol{margin:0;padding-left:1.1rem;font-size:.9rem}
+.meme ol li{margin:.25rem 0}
+.meme .said{background:#fff;border:1px solid var(--ink);border-radius:14px;padding:.6rem .8rem;font-size:.92rem;position:relative;line-height:1.4}
+.meme .said::after{content:"";position:absolute;left:1.2rem;bottom:-8px;width:14px;height:14px;background:#fff;border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);transform:rotate(45deg)}
+.meme .doc{margin-top:1.4rem;font-size:.85rem;color:var(--ink-2)}
+.summary{background:#fff;border:1px solid var(--mist);border-radius:14px;padding:1.1rem;font-size:.9rem;min-height:15rem}
+.summary h4{font-family:var(--display);font-size:1rem;margin:0 0 .2rem}
+.summary .meta{font-size:.8rem;color:var(--ink-2);margin-bottom:.7rem}
+.summary .sline{padding:.28rem 0;border-bottom:1px dashed var(--mist-2)}
+.summary .sline b{font-weight:600}
+.summary .sline.hidden{opacity:0;transform:translateX(8px)}
+.summary .sline{transition:opacity .35s,transform .35s}
+.summary .foot{font-size:.8rem;color:var(--ink-2);margin-top:.7rem}
+.summary .gen{font:inherit;background:var(--ink);color:#fff;border:0;border-radius:10px;padding:.55rem 1rem;cursor:pointer;margin-top:.4rem}
+
+/* closing */
+.closing{background:var(--ink);color:#fff;text-align:center;padding:5rem 0 4.5rem}
+.logo.xl{width:6rem;height:6rem;display:block;margin:0 auto 1rem}
+.closing-name{font-family:var(--display);font-weight:800;font-size:2.4rem;letter-spacing:-.01em}
+.closing-kk{font-family:var(--display);font-weight:700;font-size:clamp(1.5rem,3.6vw,2.6rem);line-height:1.2;margin:1.2rem auto .6rem}
+.closing-en{color:#C9D6DC;font-size:1.1rem;margin:0}
+.anim .closing .logo.xl{transform:scale(.6) rotate(-20deg);opacity:0;transition:transform .9s cubic-bezier(.2,1.4,.4,1),opacity .6s}
+.anim .closing.in .logo.xl{transform:none;opacity:1}
+.anim .closing .closing-kk,.anim .closing .closing-en{opacity:0;transform:translateY(10px);transition:opacity .6s .5s,transform .6s .5s}
+.anim .closing.in .closing-kk,.anim .closing.in .closing-en{opacity:1;transform:none}
+
+/* where mothers turn */
+.myquote{margin:1rem 0 1.6rem;max-width:46rem;border-left:4px solid var(--gold);padding:.4rem 0 .4rem 1.1rem;font-family:var(--display);font-weight:500;font-size:1.2rem;line-height:1.45}
+.myquote cite{display:block;font-family:var(--body);font-style:normal;font-weight:400;font-size:.85rem;color:var(--ink-2);margin-top:.5rem}
+.turn3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.1rem}
+@media (max-width:860px){.turn3{grid-template-columns:1fr}}
+.tcard{background:#fff;border:1px solid var(--mist);border-radius:18px;padding:1rem;display:flex;flex-direction:column;gap:.8rem}
+.tname{font-weight:600}
+.mini{display:flex;flex-direction:column;gap:.45rem;font-size:.86rem;flex:1;min-height:9.5rem}
+.mini .msg{max-width:92%}
+.mini.broken{justify-content:center;align-items:stretch;background:var(--mist-2);border-radius:12px;padding:1rem}
+.fakefield{background:#fff;border:1px solid var(--mist);border-radius:8px;padding:.55rem .7rem;display:flex;justify-content:space-between;align-items:center;color:var(--ink-2)}
+.fakeempty{text-align:center;font-size:.82rem;color:var(--red);margin-top:.6rem}
+.spin{width:14px;height:14px;border:2px solid var(--mist);border-top-color:var(--sky);border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){.spin{animation:none}}
+.tverdict{font-size:.85rem;padding:.45rem .6rem;border-radius:8px}
+.tverdict.warn{background:var(--gold-soft);color:#6B4A00}
+.tverdict.bad{background:var(--red-soft);color:#7A1F1A}
+.takeaway{margin-top:1.2rem;background:var(--ink);color:#fff;border-radius:14px;padding:1rem 1.3rem;font-size:1.05rem}
+.takeaway strong{color:var(--gold)}
+.anim .turn3 .tcard{opacity:0;transform:translateY(14px);transition:opacity .5s,transform .5s}
+.anim .turnto.in .turn3 .tcard{opacity:1;transform:none}
+.anim .turnto .takeaway{opacity:0;transition:opacity .6s 1.2s}
+.anim .turnto.in .takeaway{opacity:1}
+
+/* social-science question block */
+.ssq{margin:3rem auto 0;max-width:52rem;border-left:5px solid var(--gold);border-right:5px solid var(--gold);background:#fff;border-radius:6px;padding:1.8rem 2rem;text-align:center}
+.ssq-label{font-size:.9rem;font-weight:600;color:var(--sky);margin-bottom:.6rem}
+.ssq-q{font-family:var(--display);font-weight:700;font-size:clamp(1.3rem,2.4vw,1.7rem);line-height:1.3;margin:0 0 1.2rem}
+.ssq-p{font-size:1rem;color:var(--ink-2);text-align:center;margin:0;max-width:44rem;margin-inline:auto}
+
+/* trust cards */
+.trustgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.1rem;margin:1.2rem 0 1rem}
+@media (max-width:820px){.trustgrid{grid-template-columns:1fr}}
+.trust{background:#fff;border:1px solid var(--mist);border-radius:14px;padding:1.1rem 1.2rem}
+.trust-top{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.trust-name{font-family:var(--display);font-weight:700;font-size:1.1rem}
+.trust-verdict{font-weight:600;color:var(--sky);margin:.35rem 0 .5rem}
+.trust p{font-size:.95rem;color:var(--ink-2);margin:0}
+.anim .trustgrid .trust{opacity:0;transform:translateY(12px);transition:opacity .5s,transform .5s}
+.anim .trustgrid.in .trust{opacity:1;transform:none}
+
+/* village hybrid */
+.village{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:.8rem;align-items:stretch;margin:1.4rem 0 .8rem}
+@media (max-width:860px){.village{grid-template-columns:1fr}.varrow{display:none}}
+.vstep{background:#fff;border:1px solid var(--mist);border-top:4px solid var(--sky);border-radius:6px 6px 12px 12px;padding:1rem;display:flex;flex-direction:column;gap:.25rem;font-size:.93rem}
+.vstep:first-child{border-top-color:var(--red)}
+.vstep b{margin-top:.4rem}
+.vstep span{color:var(--ink-2)}
+.vtime{font-family:var(--display);font-weight:700;font-size:1.05rem}
+.varrow{align-self:center;font-size:1.6rem;color:var(--ink-2)}
+.vnotes{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;font-size:.93rem;margin-bottom:1rem}
+@media (max-width:860px){.vnotes{grid-template-columns:1fr}}
+.vnotes div{background:var(--mist-2);border-radius:10px;padding:.7rem .9rem}
+.riskbox{margin-top:1.2rem;background:var(--red-soft);color:#5E1915;border-radius:10px;padding:.8rem 1rem;font-size:.95rem}
+.anim .village .vstep{opacity:0;transform:translateX(-10px);transition:opacity .5s,transform .5s}
+.anim .village.in .vstep{opacity:1;transform:none}
+
+/* research approaches */
+.apprgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.1rem;margin-top:1.4rem}
+@media (max-width:860px){.apprgrid{grid-template-columns:1fr}}
+.appr{background:#fff;border:1px solid var(--mist);border-radius:14px;padding:1.2rem 1.3rem}
+.appr:last-child{grid-column:1/-1}
+.geo{display:flex;gap:.35rem;flex-wrap:wrap;margin:.45rem 0 .1rem}
+.geo span{font-size:.74rem;font-weight:600;border-radius:4px;padding:.08rem .45rem;border:1px solid}
+.geo span::before{content:"\25CF";margin-right:.3rem;font-size:.7em;vertical-align:.1em}
+.geo .g-kz{color:#0B4A6B;background:#fff;border-color:#9CC9E2}
+.geo .g-ca{color:#0F6B47;background:#fff;border-color:#A9D8BF}
+.geo .g-gl{color:#3B5163;background:#fff;border-color:#C9D6DC}
+.appr-tag{display:inline-block;background:var(--sky-soft);color:#0B4A6B;font-size:.82rem;font-weight:600;border-radius:999px;padding:.15rem .7rem}
+.appr h3{margin:.6rem 0 .5rem;font-size:1.12rem}
+.appr-focus{font-size:.94rem;color:var(--ink-2)}
+.appr-row{display:grid;grid-template-columns:6.5rem 1fr;gap:.7rem;font-size:.93rem;padding:.45rem 0;border-top:1px dashed var(--mist)}
+.lab{font-size:.8rem;font-weight:600;border-radius:6px;padding:.1rem .45rem;align-self:start;text-align:center}
+.lab.k{background:#DDF2E6;color:#0F5A37}.lab.c{background:var(--gold-soft);color:#6B4A00}.lab.s{background:var(--red-soft);color:#7A1F1A}
+.converge{margin-top:1.6rem;text-align:center}
+.conv-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem}
+.conv-chips span{background:#fff;border:1px solid var(--mist);border-radius:999px;padding:.3rem .9rem;font-size:.9rem}
+.conv-arrow{font-size:1.8rem;color:var(--ink-2);margin:.3rem 0}
+.gapbox{background:var(--ink);color:#fff;border-radius:16px;padding:1.4rem 1.6rem;text-align:left;border-left:6px solid var(--gold)}
+.gap-label{font-family:var(--display);font-weight:700;font-size:1.15rem;color:var(--gold);margin-bottom:.5rem}
+.gapbox p{margin:0;color:#DCE5EA}
+.anim .apprgrid .appr{opacity:0;transform:translateY(12px);transition:opacity .5s,transform .5s}
+.anim .apprgrid.in .appr{opacity:1;transform:none}
+.anim .converge .conv-chips span{opacity:0;transform:translateY(-6px);transition:opacity .4s,transform .4s}
+.anim .converge.in .conv-chips span{opacity:1;transform:none}
+.anim .converge .gapbox,.anim .converge .conv-arrow{opacity:0;transition:opacity .6s 1.1s}
+.anim .converge.in .gapbox,.anim .converge.in .conv-arrow{opacity:1}
+
+/* silence map */
+.silgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.9rem;margin-top:1rem}
+.silence{border:2px dashed #B8C6CE;border-radius:14px;padding:1rem;background:rgba(255,255,255,.55);display:flex;flex-direction:column;gap:.35rem}
+.silence h4{margin:0;font-family:var(--display);font-size:1.05rem}
+.silence p{margin:0;font-size:.9rem;color:var(--ink-2);flex:1}
+.sil-status{font-size:.8rem;font-weight:600;color:var(--red);display:flex;align-items:center;gap:.35rem}
+.sil-status::before{content:"";width:.6rem;height:.6rem;border-radius:50%;border:2px solid var(--red)}
+.sil-who{font-size:.84rem;font-weight:600;color:var(--ink);border-top:1px solid var(--mist);padding-top:.4rem}
+@media (max-width:860px){.silgrid{grid-template-columns:1fr}}
+.silence.key{grid-column:1/-1;border-color:var(--gold);background:var(--gold-soft)}
+.anim .silgrid .silence{opacity:0;transform:scale(.96);transition:opacity .45s,transform .45s}
+.anim .silgrid.in .silence{opacity:1;transform:none}
+
+/* three delays */
+.delays{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:.9rem;margin:1rem 0}
+@media (max-width:860px){.delays{grid-template-columns:1fr}}
+.delay{border:2px dashed #B8C6CE;border-radius:14px;padding:1rem 1.1rem;background:rgba(255,255,255,.6);display:flex;flex-direction:column;gap:.35rem}
+.delay.ana{border:2px solid var(--gold);background:var(--gold-soft)}
+.delay-n{font-size:.85rem;font-weight:600;color:var(--sky)}
+.delay h4{margin:0;font-family:var(--display);font-size:1.15rem}
+.delay p{margin:0;font-size:.92rem;color:var(--ink-2);flex:1}
+.delay-ana{margin-top:.4rem;background:var(--ink);color:#fff;border-radius:8px;padding:.4rem .7rem;font-weight:600;font-size:.9rem;text-align:center}
+.delay-no{margin-top:.4rem;border-top:1px solid var(--mist);padding-top:.4rem;font-size:.86rem;font-weight:600;color:var(--ink-2)}
+.anim .delays .delay{opacity:0;transform:translateY(10px);transition:opacity .5s,transform .5s}
+.anim .delays.in .delay{opacity:1;transform:none}
+
+/* cases */
+.cases{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin:1.6rem 0}
+@media (max-width:820px){.cases{grid-template-columns:1fr}}
+.case{border-top:3px solid var(--sky);padding-top:.9rem}
+.case h4{font-family:var(--display);font-size:1.05rem;margin:0 0 .5rem}
+.case dl{margin:0;font-size:.95rem}
+.case dt{font-weight:600;margin-top:.5rem}
+.case dd{margin:0;color:var(--ink-2)}
+
+/* bill (receipt) */
+.receipt{max-width:44rem;margin:2.5rem auto;background:#fff;border:1px solid var(--mist);padding:1.8rem 1.8rem 1.4rem;position:relative;
+  -webkit-mask: radial-gradient(circle 7px at 50% 100%, transparent 98%, #000) 50% 100%/18px 100% repeat-x;
+          mask: radial-gradient(circle 7px at 50% 100%, transparent 98%, #000) 50% 100%/18px 100% repeat-x}
+.receipt h3{margin:0 0 .3rem;text-align:center;font-size:1.2rem}
+.receipt .r-sub{text-align:center;font-size:.85rem;color:var(--ink-2);margin-bottom:1.2rem}
+.line{display:grid;grid-template-columns:1fr auto;gap:.2rem 1rem;padding:.75rem 0;border-top:1px dashed var(--mist)}
+.line .name{font-weight:600}
+.line .desc{grid-column:1/-1;font-size:.9rem;color:var(--ink-2)}
+.meter{display:flex;gap:3px;align-items:center}
+.meter i{width:.95rem;height:.55rem;border-radius:2px;background:var(--mist-2)}
+.meter[data-l="1"] i:nth-child(-n+1),.meter[data-l="2"] i:nth-child(-n+2){background:var(--gold)}
+.meter[data-l="3"] i:nth-child(-n+3){background:var(--red)}
+.meter span{font-size:.8rem;margin-left:.4rem;color:var(--ink-2);min-width:3.6rem}
+.total{border-top:2px solid var(--ink);margin-top:.4rem;padding-top:.9rem;display:flex;justify-content:space-between;font-weight:600}
+
+/* verdict */
+.verdict{background:var(--ink);color:#fff;border-radius:18px;padding:2.4rem;margin:3rem 0}
+.verdict h3{font-size:clamp(1.6rem,4vw,2.6rem);font-weight:800;margin:0 0 1rem;color:#fff}
+.verdict p,.verdict li{color:#D8E2E8}
+.verdict ol{padding-left:1.3rem;margin:1rem 0}
+.verdict li{margin:.45rem 0}
+.verdict strong{color:#fff}
+.stamp{display:inline-block;border:2px solid var(--gold);color:var(--gold);border-radius:6px;padding:.2rem .7rem;font-family:var(--display);font-weight:600;font-size:.85rem;margin-bottom:1rem;transform:rotate(-2deg)}
+
+/* calc table */
+table{border-collapse:collapse;width:100%;font-size:.92rem;margin:1rem 0}
+th,td{text-align:left;padding:.45rem .6rem;border-bottom:1px solid var(--mist-2);vertical-align:top}
+th{font-weight:600;color:var(--ink-2)}
+td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* transparency + sources */
+.transparency{background:#fff;border:1px solid var(--mist);border-radius:14px;padding:1.6rem 1.8rem;columns:2 24rem;column-gap:2.8rem;column-rule:1px solid var(--mist);font-size:.95rem}
+.transparency > div{margin-bottom:1.1rem}.transparency > div:last-child{margin-bottom:0}
+.transparency h3{break-after:avoid}.transparency > div:nth-child(2),.transparency > div:nth-child(4){break-inside:avoid}
+.transparency h3{margin:0 0 .4rem}
+.transparency p{margin:0}
+ol.sources{font-size:.86rem;color:var(--ink-2);padding-left:1.6rem;columns:2 26rem;column-gap:3rem}
+ol.sources li{margin:.3rem 0;break-inside:avoid}
+footer{padding:3rem 0 4rem;font-size:.85rem;color:var(--ink-2)}
+</style>
+<script>if(!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches))document.documentElement.classList.add("anim");</script>
+</head>
+<body>
+
+<nav class="topnav" aria-label="Sections">
+  <div class="wrap">
+    <span class="brand"><svg class="logo sm" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="31" fill="#1C8FC9"/><path d="M17 49 A17 17 0 1 1 47 41" fill="none" stroke="#F3F6F7" stroke-width="6" stroke-linecap="round"/><circle cx="41" cy="17" r="5.5" fill="#F3F6F7"/><circle cx="31" cy="36" r="8" fill="#E2A70B"/></svg>Ana</span>
+    <a href="#problem">1 Problem</a>
+    <a href="#data">2 Data</a>
+    <a href="#research">3 Research</a>
+    <a href="#solution">4 Solution</a>
+    <a href="#bill">The bill</a>
+    <a href="#verdict">Verdict</a>
+    <a href="#transparency">AI transparency</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="wordmark"><svg class="logo" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="31" fill="#1C8FC9"/><path d="M17 49 A17 17 0 1 1 47 41" fill="none" stroke="#F3F6F7" stroke-width="6" stroke-linecap="round"/><circle cx="41" cy="17" r="5.5" fill="#F3F6F7"/><circle cx="31" cy="36" r="8" fill="#E2A70B"/></svg><span>Ana</span></div>
+        <h1 lang="kk">Күн-түн демей, жаныңда</h1>
+        <p class="kicker">Day or night, by your side</p>
+        <p class="sub">A 24/7 assistant for pregnant women and new mothers in Kazakhstan: it answers in Kazakh and Russian, remembers the child's history, and calls in a human nurse when something is wrong. Plus an honest account of what it would cost.</p>
+        <p class="small" style="margin-top:1rem">PLS419 semester project · Zarema · Nazarbayev University</p>
+      </div>
+      <div class="hero-phone">
+        <div class="phone">
+          <div class="phone-head"><svg class="logo md" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="31" fill="#1C8FC9"/><path d="M17 49 A17 17 0 1 1 47 41" fill="none" stroke="#F3F6F7" stroke-width="6" stroke-linecap="round"/><circle cx="41" cy="17" r="5.5" fill="#F3F6F7"/><circle cx="31" cy="36" r="8" fill="#E2A70B"/></svg><div><strong>Ana</strong><div class="small">онлайн · қазақша / по-русски</div></div></div>
+          <div class="msgs" lang="ru">
+            <div class="msg bot hm">Слушай, хотела уточнить: малыш уже 5 часов без мокрого подгузника. Ты просто забыла отметить или он действительно ещё не писал?</div>
+            <div class="msg me hm">Нет, действительно не писал. И опять сегодня рвота была.</div>
+            <div class="msg bot amber hm">Подожди, я помню, ты вчера тоже писала про рвоту и диарею. Вместе с тем, что он так долго не писает, это уже тревожный признак. Есть риск сильного обезвоживания.</div>
+            <div class="msg bot red hm"><span class="tag">⚠️ Срочно · 103</span>Пожалуйста, не жди: малышу нужна срочная медицинская помощь. Позвони 103 или обратись в ближайшее приёмное отделение.</div>
+            <div class="msg bot hm">Я также передала информацию дежурной медсестре. Она скоро тебе позвонит. Но сейчас главное — не откладывать обращение за помощью.</div>
+          </div>
+        </div>
+        <p class="small" style="margin-top:.8rem">Ana notices a missing wet diaper, remembers yesterday's vomiting and diarrhea, and escalates: call 103, and an on-duty nurse calls back. Illustrative, in Russian.</p>
+      </div>
+    </div>
+
+    <div class="timeline" aria-label="Illustrative timeline of a pregnancy and a baby's first year, showing clinical contacts as short marks and the long gaps between them">
+      <svg id="tl" viewBox="0 0 1000 150" role="img">
+        <title>Clinical contacts versus time alone, from conception to the baby's first birthday</title>
+        <line x1="0" y1="70" x2="1000" y2="70" stroke="#C9D6DC" stroke-width="2"/>
+        <rect id="tl-gap" x="0" y="64" width="0" height="12" rx="6" fill="#E2A70B" opacity=".85"/>
+        <g id="tl-dots"></g>
+        <line x1="434.8" y1="40" x2="434.8" y2="100" stroke="#10263A" stroke-dasharray="3 4"/>
+        <text x="0" y="125" font-size="14" fill="#3B5163" font-family="Golos Text, sans-serif">Pregnancy begins</text>
+        <text x="434.8" y="125" font-size="14" fill="#10263A" text-anchor="middle" font-family="Golos Text, sans-serif" font-weight="600">Birth</text>
+        <text x="1000" y="125" font-size="14" fill="#3B5163" text-anchor="end" font-family="Golos Text, sans-serif">First birthday</text>
+        <text x="0" y="28" font-size="13" fill="#1C8FC9" font-family="Golos Text, sans-serif">● a contact with a health worker</text>
+      </svg>
+      <div class="tl-readout">
+        <div><div class="tl-big"><span id="tl-count">99.4</span>%</div><div class="small">of the time, no health worker is present</div></div>
+        <p class="tl-note">An illustrative mother with 8 antenatal visits, a 3-day birth stay and 12 infant check-ups spends about 92 of 15,456 hours with a health worker. The questions, and some of the emergencies, arrive in the other 15,364.</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- SECTION 1 -->
+<section class="chapter" id="problem">
+  <div class="wrap">
+    <div class="secnum">Section 1 · The problem</div>
+    <h2>A system that reaches almost every mother once, and hears her rarely</h2>
+    <div class="grid2">
+      <div class="prose">
+        <p class="lede">Kazakhstan does not have an access problem in the usual sense. Almost every pregnant woman sees a skilled provider and almost every baby is born in a facility. Its problem is what happens between those contacts.</p>
+        <p>The headline numbers are good. In the 2024 Multiple Indicator Cluster Survey (MICS), 91.9% of women had at least four antenatal visits and 99.5% gave birth in a health facility.<sup><a href="#s1">1</a></sup> The Ministry of Health reports that maternal mortality fell by 12% and infant mortality by 11% in 2024.<sup><a href="#s3">3</a></sup> </p>
+        <p>Three facts complicate them. First, many deaths are still avoidable: a confidential audit cited by UNFPA judged about 70% of maternal deaths preventable, and 10–12% happened at home, outside any facility.<sup><a href="#s6">6</a></sup> Second, progress is uneven. In August 2025 the Health Minister named Akmola's maternal mortality as about seven times the national value and listed six regions where it was rising.<sup><a href="#s4">4</a></sup> In the first quarter of 2026, infant mortality in rural areas rose from 6.26 to 6.43 per 1,000 while it fell in cities from 5.70 to 5.02.<sup><a href="#s5">5</a></sup> Third, the population at stake is large and shrinking: births fell from 388,400 in 2023 to 335,000 in 2025.<sup><a href="#s7">7</a></sup></p>
+        <p>Contact is also rare by design. Since September 2025 the universal home-visiting model gives two nurse visits during pregnancy and ten across early childhood, with more only when a risk is spotted.<sup><a href="#s56">56</a></sup> From my own experience as a mother, babies are seen at the polyclinic about once a month until their first birthday and much less often after, so a newborn goes weeks unseen at the age when danger signs move fastest. In villages the gap is wider: at the end of 2024 Kazakhstan was short of about 3,986 doctors and 4,231 mid-level staff,<sup><a href="#s59">59</a></sup> and in some rural districts doctor staffing barely reaches 75%.<sup><a href="#s57">57</a></sup> Paying staff to move has not fixed it: a 2024 study found the rural incentive scheme contributed insignificantly to rural workforce growth, while the density of rural pediatricians fell.<sup><a href="#s60">60</a></sup></p>
+        <p><strong>Who is affected:</strong> pregnant women and mothers of infants under one year, with the highest stakes for rural women, women in regions with weak antenatal follow-up, women far from the regional perinatal centers where half of all births now happen,<sup><a href="#s6">6</a></sup> and women whose health-insurance (OSMS) status has lapsed: registration, basic doctor care and emergency care are free regardless, but planned prenatal screening and fetal ultrasound require insured status.<sup><a href="#s15">15</a></sup> The state pays contributions for non-working pregnant women once they register,<sup><a href="#s72">72</a></sup> but only for women without income, and status can change month to month.<sup><a href="#s73">73</a></sup> <strong>Where:</strong> nationwide, with clear regional hotspots. <strong>How it is changing:</strong> deaths are falling overall, but regional and urban–rural gaps are not closing evenly, and the COVID years showed how fast the numbers can reverse.</p>
+      </div>
+      <aside class="aside">
+        <figure style="margin:0 0 1.5rem;padding:1rem">
+          <div class="fig-title">Rural and urban infant mortality moved apart</div>
+          <div class="fig-sub">Deaths per 1,000 live births, first quarter of each year</div>
+          <svg id="slope" viewBox="0 0 300 200" role="img" aria-label="Urban infant mortality fell from 5.70 to 5.02 while rural rose from 6.26 to 6.43 between Q1 2025 and Q1 2026"></svg>
+          <figcaption>Source: Ranking.kz analysis reported by NUR.KZ, June 2026.<sup><a href="#s5">5</a></sup> Quarterly rates rest on small numbers; read as a signal, not a trend.</figcaption>
+        </figure>
+      </aside>
+    </div>
+    <figure id="contacts-fig">
+      <div class="fig-title">Mother and baby: every contact with a health worker, from pregnancy to the first birthday</div>
+      <div class="fig-sub">One illustrative family: 8 antenatal visits, 2 nurse home visits in pregnancy, birth, a home visit after discharge, and monthly check-ups for the baby</div>
+      <div class="legend">
+        <span><span class="sw" style="background:#1C8FC9"></span>clinic or polyclinic visit</span>
+        <span><span class="sw" style="background:#fff;border:2.5px solid #1C8FC9;width:.75rem;height:.75rem"></span>nurse home visit</span>
+        <span><span class="sw" style="background:#10263A;border-radius:2px"></span>birth</span>
+        <span><span class="sw" style="background:#E2A70B;border-radius:2px;height:.35rem;width:1.3rem"></span>time on their own</span>
+      </div>
+      <svg id="contacts" viewBox="0 0 1000 250" role="img" aria-label="Mother: 8 clinic visits and 2 home visits across pregnancy. Baby: a home visit after discharge and 12 monthly check-ups. 24 contacts in 92 weeks, about one every 4 weeks."></svg>
+      <div class="kpis">
+        <div><strong>24</strong>contacts in 92 weeks: about one every 4 weeks</div>
+        <div><strong>3,986</strong>doctors short at the end of 2024</div>
+        <div><strong>4,231</strong>nurses and other mid-level staff short</div>
+        <div><strong>~75%</strong>doctor staffing in some rural districts</div>
+      </div>
+      <figcaption>My figure. Clinic visits: 68.1% of women have 8 or more (MICS 2024);<sup><a href="#s1">1</a></sup> nurse home visits: universal model since September 2025;<sup><a href="#s56">56</a></sup> monthly infant check-ups: from my own experience as a mother. Staffing: Ministry of Health;<sup><a href="#s59">59</a></sup> rural districts: a Mazhilis deputy's request, reported by Kazinform.<sup><a href="#s57">57</a></sup> Every dot needs a person, and in many villages that person is missing; incentives to move staff to villages have barely worked.<sup><a href="#s60">60</a></sup></figcaption>
+    </figure>
+
+    <section class="turnto" id="turnto" aria-labelledby="turnto-h">
+      <h3 id="turnto-h" style="margin-top:2.5rem">What fills the gaps between visits?</h3>
+      <blockquote class="myquote">When I was pregnant in 2024, the mothers around me took their questions to Momslife and to group chats with other mothers, and increasingly to ChatGPT. Nobody mentioned Supermom Academy.<cite>Zarema, from my own pregnancy and motherhood. One person's experience, not data.</cite></blockquote>
+      <div class="turn3">
+        <div class="tcard">
+          <div class="tname">Mothers' groups and chats</div>
+          <div class="mini">
+            <div class="msg me">My son has had a rash for 3 days, should I worry?</div>
+            <div class="msg bot">Mine had the same, it went away on its own 🙂</div>
+            <div class="msg bot">We just changed the cream</div>
+          </div>
+          <div class="tverdict warn">Unverified: kind, fast, but nobody checks it</div>
+        </div>
+        <div class="tcard">
+          <div class="tname">A general chatbot</div>
+          <div class="mini">
+            <div class="msg me">My son has had a rash for 3 days, should I worry?</div>
+            <div class="msg bot">Most rashes in babies are harmless, but contact your doctor if there is fever or the rash doesn't fade when pressed…</div>
+          </div>
+          <div class="tverdict warn">Often accurate, but verified by nobody in Kazakhstan, and it can't act</div>
+        </div>
+        <div class="tcard">
+          <div class="tname">Supermom Academy (Kazakhstan)</div>
+          <div class="mini broken">
+            <div class="fakefield">Выберите город <span class="spin" aria-hidden="true"></span></div>
+            <div class="fakeempty">Нет доступных городов</div>
+          </div>
+          <div class="tverdict bad">Reported 400,000 users;<sup><a href="#s22">22</a></sup> when I tried to register in November 2026, it would not load a single city</div>
+        </div>
+      </div>
+      <div class="takeaway">The advice mothers actually use is either unverified or verified by nobody here, and <strong>none of it can call for help when the answer should be "go now."</strong></div>
+    </section>
+
+    <div class="ssq">
+      <div class="ssq-label">The social-science question</div>
+      <p class="ssq-q">Why does a state that touches nearly every mother still fail to hear her in the hours that matter, and if an AI can listen, to whom should it report what it hears?</p>
+      <p class="ssq-p">This is a question about institutions and power, not only about medicine. Kazakhstan's health system sees mothers through scheduled contacts and registries. President Tokayev's "listening state" promises to hear citizens, but in practice it hears those who call, complain or turn up. A frightened mother typing at 3 a.m. is invisible to both. Any AI that lets her be heard also makes her visible to the state, and that trade-off runs through the rest of this project.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2 -->
+<section class="chapter" id="data">
+  <div class="wrap">
+    <div class="secnum">Section 2 · Background and data</div>
+    <h2>Lots of counting, little listening</h2>
+    <div class="prose">
+      <p class="lede">Kazakhstan measures maternal and newborn health from three directions. Each sees part of the picture, and none sees the hours between visits.</p>
+      <p><strong>Registration data.</strong> The Bureau of National Statistics (BNS) publishes births, infant deaths and maternal deaths by region in its quarterly "Natural movement of the population" spreadsheets and its Taldau database. The Ministry of Health's research center (NSCHD) publishes a yearly statistical book covering 2023–2024 with regional health indicators.<sup><a href="#s16">16</a></sup></p>
+      <p><strong>Survey data.</strong> UNICEF's MICS 2024 interviewed 22,454 households and 14,365 women and is designed to give estimates for all 20 regions and for urban and rural areas.<sup><a href="#s1">1</a></sup></p>
+      <p><strong>International models.</strong> WHO and UN agencies publish modeled maternal and child mortality, but only nationally.</p>
+    </div>
+
+    <figure>
+      <div class="fig-title">Figure 1. Same country, very different pregnancies</div>
+      <div class="fig-sub">Antenatal care indicators, % of women with a live birth in the 2 years before the survey, MICS 2024</div>
+      <div class="legend">
+        <span><span class="sw" style="background:#C9D6DC;border-radius:3px;width:1.4rem;height:.6rem"></span>range across the 20 regions</span>
+        <span><span class="sw" style="background:#1C8FC9"></span>urban</span>
+        <span><span class="sw" style="background:#E2A70B"></span>rural</span>
+        <span><span class="sw" style="background:#10263A;border-radius:2px;width:3px;height:.9rem"></span>national</span>
+      </div>
+      <svg id="dumbbell" viewBox="0 0 900 260" role="img" aria-label="Regional ranges are much wider than urban-rural gaps: 8 or more visits ranges from 26.1% in Aktobe to 98.8% in Abay, while urban is 70.7% and rural 64.4%."></svg>
+      <figcaption>My figure, built from MICS 2024 Survey Findings Report, Table TM.5.2.<sup><a href="#s1">1</a></sup> The lowest 4+ visits value (Almaty city, 73.7%) rests on a small sample, so the range starts at Atyrau (74.7%). <strong>What it shows:</strong> the urban–rural gap is a few points; the gap between regions is up to 70 points. Where a mother lives matters more than whether she lives in a village.</figcaption>
+    </figure>
+
+    <div class="prose">
+      <p>Figure 1 changes how the problem should be scoped. "Rural women can't reach care" is not what the data show: rural women attend almost as often as urban women. The big differences are between regions, and they concern <em>how often and how early</em> women are seen. Only 26.1% of women in Aktobe had eight or more visits, against 98.8% in Abay. The same is true after birth. UNICEF reports that in Almaty region about nine in ten newborns get a medical check within a week of discharge,<sup><a href="#s19">19</a></sup> in Shymkent 80.4%,<sup><a href="#s18">18</a></sup> while Akmola ranks 18th, with nearly half of newborns missing that check.<sup><a href="#s20">20</a></sup> All three figures use the same measure, a medical check within the first week after discharge, taken from UNICEF's regional summaries of MICS 2024. They should not be mixed with the standard MICS "postnatal health check", which is close to universal because it mostly counts the check in the maternity hospital.<sup><a href="#s1">1</a></sup> A newborn's first week at home looks very different depending on the oblast.</p>
+    </div>
+
+    <h3>How far can the numbers be trusted?</h3>
+    <div class="prose"><p>Four problems, from how births are defined to how few deaths are ever reviewed. The meter shows how much each one can distort the picture.</p></div>
+    <div class="trustgrid">
+      <div class="trust">
+        <div class="trust-top"><span class="trust-name">Definitions changed</span><span class="meter" data-l="2"><i></i><i></i><i></i></span></div>
+        <div class="trust-verdict">Trends before 2008 are not comparable</div>
+        <p>In 2008 Kazakhstan adopted WHO live-birth criteria (from 22 weeks and 500 g). Counting the 500–999 g babies alone raised that year's infant mortality by about 21% and perinatal mortality by about 38%.<sup><a href="#s8">8</a></sup></p>
+      </div>
+      <div class="trust">
+        <div class="trust-top"><span class="trust-name">Deaths can be reclassified</span><span class="meter" data-l="3"><i></i><i></i><i></i></span></div>
+        <div class="trust-verdict">Newborn deaths may be undercounted</div>
+        <p>Between 2014 and 2018, stillbirths during labor among babies under 1,000 g rose from 7.9 to 99.3 per 1,000; UNFPA links punitive oversight to distorted statistics and found hospital transfers in only 0.2% of birth-registry records.<sup><a href="#s6">6</a></sup> One possible reading, contested and unproven, is that some early newborn deaths are recorded as stillbirths, which keeps them out of infant mortality.</p>
+      </div>
+      <div class="trust">
+        <div class="trust-top"><span class="trust-name">Audits are thin</span><span class="meter" data-l="2"><i></i><i></i><i></i></span></div>
+        <div class="trust-verdict">Few deaths are ever reviewed</div>
+        <p>The 2024 pilot of the perinatal death audit reviewed only 3.2% of the year's perinatal deaths, and three regions sent nothing, reportedly because hospitals feared blame.<sup><a href="#s13">13</a></sup></p>
+      </div>
+      <div class="trust">
+        <div class="trust-top"><span class="trust-name">Numbers are small</span><span class="meter" data-l="2"><i></i><i></i><i></i></span></div>
+        <div class="trust-verdict">Regional rates jump year to year</div>
+        <p>Maternal mortality jumped from 13.7 per 100,000 in 2019 to 36.5 in 2020 and 44.7 in 2021 because of COVID-19,<sup><a href="#s10">10</a>,<a href="#s11">11</a></sup> then fell to about 10 by 2023–2024.<sup><a href="#s21">21</a>,<a href="#s62">62</a></sup> In single regions, a handful of deaths swings the rate: North Kazakhstan went from 0 in 2019 to 76.7 in 2020.<sup><a href="#s12">12</a></sup> Even the best survey struggles, as Figure 2 shows.</p>
+      </div>
+    </div>
+
+    <figure>
+      <div class="fig-title">The official maternal mortality series</div>
+      <div class="fig-sub">Maternal deaths per 100,000 live births, Kazakhstan, final annual figures</div>
+      <svg id="mmr" viewBox="0 0 900 270" role="img" aria-label="Maternal mortality: 13.7 in 2019, 36.5 in 2020, 44.7 in 2021, 14.1 in 2022, 9.6 in 2023, 10.1 in 2024; the final 2025 figure is not yet published."></svg>
+      <figcaption>Sources: 2019–2021, Zhamantayev et al. and Kursiv;<sup><a href="#s10">10</a>,<a href="#s11">11</a></sup> 2022, Bureau data via Statbase;<sup><a href="#s75">75</a></sup> 2023, UNICEF;<sup><a href="#s21">21</a></sup> 2024, Bureau of National Statistics.<sup><a href="#s62">62</a></sup> The Bureau's next update is due on 31 December 2026,<sup><a href="#s69">69</a></sup> so for 2025 and 2026 only preliminary Ministry figures exist, for example 6.8 in the first quarter of 2026 against 12.0 a year earlier.<sup><a href="#s70">70</a></sup> Quarterly rates rest on very few deaths and swing widely.</figcaption>
+    </figure>
+
+    <figure>
+      <div class="fig-title">Figure 2. Can the best survey see newborn deaths in your region?</div>
+      <div class="fig-sub">Status of the MICS 2024 neonatal mortality estimate for each of the 20 regions</div>
+      <div class="legend">
+        <span><span class="sw t-none" style="border-radius:3px"></span>no estimate (too few cases)</span>
+        <span><span class="sw t-warn" style="border-radius:3px"></span>estimate shown, but flagged for caution</span>
+        <span><span class="sw t-ok" style="border-radius:3px"></span>estimate without a caution flag</span>
+      </div>
+      <div class="tiles" id="tiles"></div>
+      <div class="tally"><div><strong>7</strong>regions: no estimate</div><div><strong>12</strong>regions: caution</div><div><strong>1</strong>region: unflagged (Turkistan)</div></div>
+      <figcaption>My figure, built from the MICS 2024 Child Mortality snapshot (Tables CS.1–CS.3).<sup><a href="#s17">17</a></sup> "No estimate" means fewer than 250 person-years of exposure; "caution" means 250–499. <strong>What it shows:</strong> for newborn deaths at regional level, the survey that gives Figure 1 its regional detail is close to silent, so regional mortality has to come from registration data, with the problems described above.</figcaption>
+    </figure>
+
+
+    <h3>Where the data is silent, and who falls through</h3>
+    <div class="prose"><p>A classic framework from maternal-health research sorts the silences: Thaddeus and Maine's "three delays" between a complication and its outcome.<sup><a href="#s64">64</a></sup> Kazakhstan's data is quiet at exactly the delay Ana targets.</p></div>
+    <div class="delays">
+      <div class="delay ana">
+        <div class="delay-n">Delay 1 · deciding to seek care</div>
+        <h4>Is this serious? Should I go?</h4>
+        <div class="sil-status">Not measured</div>
+        <p>No data on how long families wait before seeking care, or where mothers look for advice. The only figures are a company's own claim of 400,000 Supermom Academy users<sup><a href="#s22">22</a></sup> and a journalist's report of 34,000 users for a similar app.<sup><a href="#s23">23</a></sup></p>
+        <div class="delay-ana">This is where Ana works</div>
+      </div>
+      <div class="delay">
+        <div class="delay-n">Delay 2 · reaching care</div>
+        <h4>How far is the hospital?</h4>
+        <div class="sil-status">Not measured</div>
+        <p>No data on travel time to obstetric care, although half of all births now happen in top-level perinatal centers.<sup><a href="#s6">6</a></sup></p>
+        <div class="delay-no">Ana can raise the alarm earlier, but cannot shorten the road</div>
+      </div>
+      <div class="delay">
+        <div class="delay-n">Delay 3 · getting good care</div>
+        <h4>Was the care adequate?</h4>
+        <div class="sil-status">Barely reviewed</div>
+        <p>The 2024 audit pilot reviewed only 3.2% of perinatal deaths.<sup><a href="#s13">13</a></sup></p>
+        <div class="delay-no">Outside what Ana can change</div>
+      </div>
+    </div>
+    <div class="vnotes">
+      <div><b>Also unknown about Ana's users: postpartum depression.</b> No national estimate; one Almaty study found 42% of 493 mothers screened positive for depressive symptoms.<sup><a href="#s14">14</a></sup></div>
+      <div><b>Also unknown: services in Kazakh.</b> No data on how well care works in the state language, the language many rural mothers would use with Ana.</div>
+    </div>
+    <div class="takeaway" style="margin-top:1rem">The women who fall through these gaps are exactly the ones an assistant would serve: a mother in a weak-coverage region, at home, at night, with a question <strong>too small for an ambulance and too urgent for next week's appointment.</strong></div>
+  </div>
+</section>
+
+<!-- SECTION 3 -->
+<section class="chapter" id="research">
+  <div class="wrap">
+    <div class="secnum">Section 3 · Current state of research</div>
+    <h2>Five ways of studying the problem, and what none of them asks</h2>
+    <div class="prose"><p class="lede">Research on this problem falls into five approaches. Each answers a different question, and the gap appears where they fail to meet. Tags show where the studies come from.</p></div>
+    <div class="apprgrid">
+      <article class="appr">
+        <div class="appr-tag">Public health</div><div class="geo"><span class="g-kz">Kazakhstan</span></div>
+        <h3>Counting deaths: Kazakh public-health epidemiology</h3>
+        <p class="appr-focus">Kazakhstani researchers have mostly studied the problem by auditing official numbers. Chuvakova and Karin measured how the 2008 live-birth definition inflated infant and perinatal mortality.<sup><a href="#s8">8</a></sup> Zhamantayev et al. showed that 76% of the 2020 maternal deaths were from indirect causes, mainly COVID-19.<sup><a href="#s10">10</a></sup> Nukeshtayeva et al. mapped regional maternal mortality from 2000 to 2020.<sup><a href="#s12">12</a></sup> Marat et al. evaluated the perinatal death audit and found inadequate care in 93% of the reviewed cases, but reviews covered only 3.2% of deaths.<sup><a href="#s13">13</a></sup></p>
+        <div class="appr-row"><span class="lab k">Known</span><span>Mortality is falling, unevenly, with a COVID shock.</span></div>
+        <div class="appr-row"><span class="lab c">Contested</span><span>How much the official series under-counts.</span></div>
+        <div class="appr-row"><span class="lab s">Falls short</span><span>It studies deaths and facilities, not the everyday experience of mothers between contacts; Abdieva et al.'s postpartum depression study in Almaty is one of very few exceptions.<sup><a href="#s14">14</a></sup></span></div>
+      </article>
+      <article class="appr">
+        <div class="appr-tag">Program evaluation</div><div class="geo"><span class="g-kz">Kazakhstan</span><span class="g-ca">Central Asia</span><span class="g-gl">Global</span></div>
+        <h3>Evaluating mobile health programs</h3>
+        <p class="appr-focus">A second body of work, mostly from sub-Saharan Africa, asks whether messaging mothers changes behavior. Kenya's PROMPTS was tested in a cluster randomized trial with 6,139 women in 40 facilities across eight counties. It raised knowledge, routine care-seeking and newborn care by small amounts, and 7.4 percentage points more women received the recommended postnatal visits; but it did not significantly change how women acted on danger signs, and the trial measured no deaths. It tested the whole service, so the AI's own contribution is not separated out.<sup><a href="#s24">24</a>,<a href="#s71">71</a></sup> A widely quoted "2.28 times more likely" from a non-randomized Nairobi study is a misreading: 2.28 is an odds ratio for <em>any</em> antenatal visit (96% against 89%); for four or more visits it was 76% against 69%, not significant, among women who chose to enroll.<sup><a href="#s25">25</a></sup> South Africa's MomConnect, run by the national Department of Health, has a series of evaluations in <em>BMJ Global Health</em>.<sup><a href="#s31">31</a></sup> Kazakhstan has tried parts of this too: in 2017 Karaganda region launched a free prenatal app with an SOS button that sent a signal straight to the ambulance station,<sup><a href="#s65">65</a></sup> and Kazakhstani engineers have designed pregnancy apps for risk assessment under national medical rules.<sup><a href="#s66">66</a></sup> In Kyrgyzstan, WHO and UNFPA have backed apps for midwives and for pregnant women.<sup><a href="#s76">76</a>,<a href="#s77">77</a></sup> I found no published evaluation of any of them.</p>
+        <div class="appr-row"><span class="lab k">Known</span><span>Messages linked to a human help desk modestly improve knowledge and routine care-seeking.</span></div>
+        <div class="appr-row"><span class="lab c">Contested</span><span>How much is self-selection, since the women who enroll are often already engaged, and many headline figures are reported by the implementers themselves.</span></div>
+        <div class="appr-row"><span class="lab s">Falls short</span><span>No trial has shown fewer deaths, or better action on danger signs. Rigorous tests are mostly from Africa; Central Asian attempts were launched or designed but not evaluated, and success is measured by enrollment more than by emergencies caught.</span></div>
+      </article>
+      <article class="appr">
+        <div class="appr-tag">Computer science</div><div class="geo"><span class="g-kz">Kazakhstan</span><span class="g-gl">Global</span></div>
+        <h3>Engineering triage: can a machine sort urgent messages?</h3>
+        <p class="appr-focus">Computer scientists ask a narrower question. For MomConnect, a simple classifier sorted help-desk messages with 85.4% accuracy.<sup><a href="#s30">30</a></sup> For PROMPTS, TRIM-AI's authors report about a 17% gain over the old system in mixed English and Swahili, from a two-week test of 5,323 messages rated by mothers for usefulness; the 12% cut in workload is the organization's own estimate. Neither measures how many real emergencies are caught.<sup><a href="#s27">27</a>,<a href="#s28">28</a></sup> The closest work to Ana is Kazakhstani: MamaCare, published on 5 November 2026, is a language-model platform for perinatal mental health that screens and triages red flags in Kazakh, Russian and English. Two physicians rated its replies in 286 test sessions (109 in Kazakh, 90 in Russian, 3 mixed) and rated accuracy and safety highly; its main advantage was fewer false alarms, not more emergencies caught.<sup><a href="#s67">67</a></sup></p>
+        <div class="appr-row"><span class="lab k">Known</span><span>AI can prioritize a queue for humans.</span></div>
+        <div class="appr-row"><span class="lab c">Contested</span><span>The error rate that remains; Jacaranda Health has said its automated replies are wrong about 30% of the time, without saying what kind of errors or how serious, which is why a human takes over.<sup><a href="#s26">26</a></sup></span></div>
+        <div class="appr-row"><span class="lab s">Falls short</span><span>The Kazakh and Russian tests so far use sessions written by researchers, with no real patients;<sup><a href="#s67">67</a></sup> no one has measured how often such triage misses a real emergency here.</span></div>
+      </article>
+      <article class="appr">
+        <div class="appr-tag">Medicine and human-computer interaction</div><div class="geo"><span class="g-gl">Global</span></div>
+        <h3>Testing chatbots as medical advisers</h3>
+        <p class="appr-focus">The newest strand asks whether general chatbots can advise patients. Ayers et al. found that health professionals preferred ChatGPT's answers to physicians' answers in 78.6% of evaluations, for quality and empathy.<sup><a href="#s32">32</a></sup> But Bean et al., in a randomized study published in <em>Nature Medicine</em>, found that when real people used the same models, they identified relevant conditions in fewer than 34.5% of cases and chose the right course of action in fewer than 44.2%, no better than a control group without AI.<sup><a href="#s33">33</a></sup> In pregnancy specifically, a 2025 conference study found misinformation in 27% of 84 ChatGPT answers.<sup><a href="#s34">34</a></sup> WHO's 2024 guidance responds with over 40 recommendations, including independent audits of health AI.<sup><a href="#s35">35</a></sup></p>
+        <div class="appr-row"><span class="lab k">Known</span><span>Chatbots know medicine.</span></div>
+        <div class="appr-row"><span class="lab c">Contested</span><span>Whether ordinary users get safe advice from them.</span></div>
+        <div class="appr-row"><span class="lab s">Falls short</span><span>Almost no tests with real mothers in Central Asia, in Kazakh or Russian.</span></div>
+      </article>
+      <article class="appr">
+        <div class="appr-tag">Political science and law</div><div class="geo"><span class="g-kz">Kazakhstan</span><span class="g-gl">Global</span></div>
+        <h3>Governing AI in Kazakhstan's digital state</h3>
+        <p class="appr-focus">A fifth strand asks who controls such systems. Drawing on 53 interviews with civil servants, Buribayeva et al. argue that AI risks in Kazakhstan come less from model accuracy than from law, centralized data platforms, and a ministry that regulates, operates and promotes AI at once.<sup><a href="#s52">52</a></sup> Globally, Roberts et al. describe a fragmented system of principles with little enforcement.<sup><a href="#s53">53</a></sup></p>
+        <div class="appr-row"><span class="lab k">Known</span><span>The biggest risks are institutional.</span></div>
+                <div class="appr-row"><span class="lab s">Falls short</span><span>Buribayeva et al. note that their study does not yet include citizens or the vulnerable groups most affected.</span></div>
+      </article>
+    </div>
+    <div class="converge">
+      <div class="conv-chips"><span>Counting deaths</span><span>Evaluating mHealth</span><span>Engineering triage</span><span>Testing chatbots</span><span>Governing AI</span></div>
+      <div class="conv-arrow" aria-hidden="true">↓</div>
+      <div class="gapbox"><div class="gap-label">The gap this project speaks to</div><p>Kazakhstan already has pieces of Ana: an SOS app in Karaganda, engineering designs, and now MamaCare's bilingual triage. None has been tested with real families. So the open question is narrower than "can AI work in Kazakh?": <strong>does bilingual AI triage linked to an on-duty nurse help real families get help faster, and how often does it miss a dangerous case?</strong> Local epidemiology counts deaths, not what happens between contacts; governance research has not yet heard from citizens. No study I found asks what happens when such a tool is tied to a state identity number in a centralized, "listening" state rather than run by an NGO, as PROMPTS is. Evaluations count enrollment more readily than missed emergencies, which is how Supermom Academy could report 400,000 users and still disappear. This project designs for that question: judged by red flags caught, time to help and data kept safe, not sign-ups.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4 -->
+<section class="chapter" id="solution">
+  <div class="wrap">
+    <div class="secnum">Section 4 · The AI-assisted solution</div>
+    <h2>Ana: a question-answering assistant that knows when to call a human</h2>
+    <div class="prose">
+      <p class="lede">My design does one thing: it answers pregnant women's and new mothers' questions in Kazakh and Russian, tells them whether and how urgently to see a doctor, and when it spots a red flag, tells the mother to call 103 and alerts a human nurse who calls her back.</p>
+      <p><strong>What kind of system.</strong> A chat assistant (working name <em>Ana</em>, "mother" in Kazakh) built on ISSAI's open-source KAZ-LLM, a Kazakh–Russian–English language model developed at Nazarbayev University,<sup><a href="#s42">42</a></sup> hosted on servers in Kazakhstan. It does not answer from the open internet: it answers from the Ministry of Health's clinical protocols and an answer bank written and reviewed by Kazakhstani obstetricians and pediatricians.</p>
+      <p><strong>Doing what.</strong> Every message is sorted into three levels: green (information), amber (see your polyclinic within a day or two, with help booking) or red (call 103 now). When a child is ill, the mother logs each vomit, temperature or dose in one tap and Ana counts it all for the doctor.</p>
+      <p><strong>Run by whom.</strong> The Ministry of Health, through a hybrid: a small remote 24/7 nurse desk, staffed from cities and possibly sitting with existing lines such as iKomek 109, plus the family's own patronage nurse or village feldsher in the morning.</p>
+      <p><strong>Reaching whom.</strong> In the pilot, any pregnant woman or mother of a baby under one, who registers herself with her IIN and city. With her consent, and where lawful access to the attachment register allows, Ana can also tell her which polyclinic she is attached to and show it to the nurse. The IIN does not say where she is: 103 needs her address, a landmark and a phone number, and helps everyone regardless of attachment. Whether the IIN speeds up help is for the pilot to test. The first year is where the risk is highest and the evidence strongest. If the pilot meets its targets, Ana expands to mothers of children under three, matching the age range of the patronage home-visit model, when check-ups become rarer and the gaps between visits get longer.</p>
+    </div>
+
+    <div class="prose">
+      <h3>Why it has to be trained locally</h3>
+      <p>General chatbots are good at textbook medicine, but they learn mostly from English-language, Western sources. In my own use they sometimes default to other countries' norms: feeding advice built around other countries' diets and baby-food products, or illnesses that are rare in Kazakhstan, which WHO has listed as malaria-free since 2012.<sup><a href="#s58">58</a></sup> And no Kazakhstani doctor is accountable for what they say. Ana is grounded in local protocols and checked by local doctors.</p>
+    </div>
+    <figure>
+      <div class="fig-title">How Ana learns Kazakhstan</div>
+      <div class="fig-sub">Four local ingredients, checked by people, before any mother sees an answer</div>
+      <div class="learn">
+        <div class="ing"><b>Clinical protocols</b>Ministry of Health protocols for pregnancy, birth and child health</div>
+        <div class="ing"><b>Doctors' answer bank</b>Answers written and reviewed by Kazakhstani obstetricians and pediatricians</div>
+        <div class="ing"><b>Local context</b>103, polyclinic attachment, vaccination calendar, registered medicines, local disease patterns</div>
+        <div class="ing"><b>Testing with mothers</b>Real questions in Kazakh, Russian and mixed language; missed red flags counted</div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="out"><b>Ana</b>KAZ-LLM, hosted in Kazakhstan, answering only from these sources</div>
+      </div>
+    </figure>
+
+    <figure class="scheme">
+      <div class="fig-title">How Ana works</div>
+      <div class="fig-sub">The AI sorts and answers; humans make every emergency decision</div>
+      <svg viewBox="0 0 900 300" role="img" aria-label="A mother's message goes to Ana, which classifies it green, amber or red. Green gets an answer from approved content. Amber gets advice to see the polyclinic. Red tells the mother to call 103 and alerts a 24/7 nurse who calls back and notifies the attached polyclinic.">
+        <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#3B5163" stroke-width="1.6"/></marker></defs>
+        <g font-family="Golos Text, sans-serif">
+          <rect x="10" y="115" width="150" height="70" rx="12" fill="#10263A"/>
+          <text x="85" y="145" fill="#fff" font-size="16" text-anchor="middle" font-weight="600">Mother</text>
+          <text x="85" y="166" fill="#C9D6DC" font-size="12" text-anchor="middle">types in Kazakh or Russian</text>
+          <line x1="165" y1="150" x2="230" y2="150" stroke="#3B5163" stroke-width="1.6" marker-end="url(#ar)"/>
+          <rect x="235" y="100" width="190" height="100" rx="12" fill="#D6EBF6" stroke="#1C8FC9"/>
+          <text x="330" y="132" fill="#10263A" font-size="16" text-anchor="middle" font-weight="600">Ana (KAZ-LLM)</text>
+          <text x="330" y="154" fill="#3B5163" font-size="12" text-anchor="middle">hosted in Kazakhstan</text>
+          <text x="330" y="172" fill="#3B5163" font-size="12" text-anchor="middle">answers only from MoH protocols</text>
+          <line x1="430" y1="130" x2="500" y2="45" stroke="#3B5163" stroke-width="1.6" marker-end="url(#ar)"/>
+          <line x1="430" y1="150" x2="500" y2="150" stroke="#3B5163" stroke-width="1.6" marker-end="url(#ar)"/>
+          <line x1="430" y1="170" x2="500" y2="255" stroke="#3B5163" stroke-width="1.6" marker-end="url(#ar)"/>
+          <rect x="505" y="15" width="170" height="60" rx="10" fill="#E3EAED"/>
+          <text x="590" y="40" fill="#10263A" font-size="14" text-anchor="middle" font-weight="600">Green</text>
+          <text x="590" y="60" fill="#3B5163" font-size="12" text-anchor="middle">answer + what to watch for</text>
+          <rect x="505" y="120" width="170" height="60" rx="10" fill="#FBEFC8"/>
+          <text x="590" y="145" fill="#10263A" font-size="14" text-anchor="middle" font-weight="600">Amber</text>
+          <text x="590" y="165" fill="#3B5163" font-size="12" text-anchor="middle">see polyclinic in 1–2 days</text>
+          <rect x="505" y="225" width="170" height="60" rx="10" fill="#F7DAD7" stroke="#C93A33"/>
+          <text x="590" y="250" fill="#10263A" font-size="14" text-anchor="middle" font-weight="600">Red</text>
+          <text x="590" y="270" fill="#3B5163" font-size="12" text-anchor="middle">"Call 103 now"</text>
+          <line x1="680" y1="255" x2="725" y2="255" stroke="#C93A33" stroke-width="1.8" marker-end="url(#ar)"/>
+          <rect x="730" y="215" width="160" height="80" rx="10" fill="#fff" stroke="#C93A33"/>
+          <text x="810" y="242" fill="#10263A" font-size="14" text-anchor="middle" font-weight="600">24/7 nurse desk</text>
+          <text x="810" y="262" fill="#3B5163" font-size="12" text-anchor="middle">calls her back</text>
+          <text x="810" y="279" fill="#3B5163" font-size="12" text-anchor="middle">alerts her polyclinic</text>
+          <line x1="680" y1="150" x2="725" y2="150" stroke="#3B5163" stroke-width="1.6" marker-end="url(#ar)"/>
+          <g class="packets">
+            <circle r="7" fill="#C93A33"><animateMotion dur="4.5s" repeatCount="indefinite" path="M160 150 L330 150 L430 170 L590 255 L810 255"/></circle>
+            <circle r="5" fill="#E2A70B"><animateMotion dur="4.5s" begin="1.5s" repeatCount="indefinite" path="M160 150 L330 150 L590 150 L810 150"/></circle>
+            <circle r="5" fill="#8A99A6"><animateMotion dur="4.5s" begin="3s" repeatCount="indefinite" path="M160 150 L330 150 L430 130 L590 45"/></circle>
+          </g>
+          <rect x="730" y="120" width="160" height="60" rx="10" fill="#fff" stroke="#C9D6DC"/>
+          <text x="810" y="145" fill="#10263A" font-size="14" text-anchor="middle" font-weight="600">Polyclinic</text>
+          <text x="810" y="165" fill="#3B5163" font-size="12" text-anchor="middle">booking help</text>
+        </g>
+      </svg>
+      <div class="never" aria-label="Things Ana never does"><span>never diagnoses</span><span>never prescribes</span><span>never trains on mothers' chats without separate consent</span><span>shares chats only with medical staff, with the mother's consent in the app</span></div>
+    </figure>
+
+    <h3>One night in a village</h3>
+    <div class="prose"><p>Ana does not replace local services; it routes to them. A small remote nurse desk, staffed from cities where staffing is better, covers the night. The village's own patronage nurse or feldsher picks up in the morning. Click through one night and notice what the nurse receives: not a frightened voice explaining from scratch, but a case card with the child's history from weeks of chats.</p></div>
+    <div class="stepper">
+      <ol class="steplist" id="steplist">
+        <li data-m="160" data-part="Night"><time>02:40</time>Mother writes</li>
+        <li data-m="160" data-part="Night"><time>02:40</time>Ana spots a red flag</li>
+        <li data-m="161" data-part="Night"><time>02:41</time>Remote nurse desk gets a case card</li>
+        <li data-m="164" data-part="Night"><time>02:44</time>Remote nurse calls back</li>
+        <li data-m="480" data-part="Morning"><time>08:00</time>Local nurse or feldsher gets the card</li>
+        <li data-m="2520" data-part="Next day"><time>18:00</time>Back home</li>
+      </ol>
+      <div>
+        <div class="nightpanel night" id="nightpanel" aria-hidden="true">
+          <svg class="aclock" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" class="face"/><g class="ticks"></g><line id="hh" x1="50" y1="50" x2="50" y2="27" stroke-width="5"/><line id="mh" x1="50" y1="50" x2="50" y2="14" stroke-width="3"/><circle cx="50" cy="50" r="4" class="pin"/></svg>
+          <div><div class="clock" id="clock">02:40</div><div class="daypart" id="daypart">Night</div></div>
+        </div>
+        <div class="screen" id="screen" aria-live="polite"></div>
+        <div class="stepbtns"><button type="button" id="playNight" class="primary">▶ Play the night</button><button type="button" id="prevStep">Back</button><button type="button" id="nextStep">Next step</button></div>
+      </div>
+    </div>
+    <div class="vnotes">
+      <div><b>No mobile internet?</b> Ana falls back to plain SMS, as MomConnect does.<sup><a href="#s29">29</a></sup></div>
+      <div><b>An honest limit:</b> Ana raises the alarm earlier. It cannot shorten a two-hour road to the district hospital.</div>
+    </div>
+
+    <figure>
+      <div class="fig-title">Will it strain staff Kazakhstan doesn't have?</div>
+      <div class="fig-sub">The nurse desk is small. The real risk is what Ana sends to polyclinics.</div>
+      <div class="kpis">
+        <div><strong id="kpiNurses">15</strong>nurses for a 24/7 desk, at the call volume set in the calculator below (default: two-region pilot)</div>
+        <div><strong>191,728</strong>mid-level medical staff in Kazakhstan; the desk is about <span id="kpiAll">0.008%</span> of them</div>
+        <div><strong>4,231</strong>mid-level staff short; the desk equals about <span id="kpiShort">0.35%</span> of the shortage</div>
+      </div>
+      <div class="calc" id="staffcalc">
+        <div class="calc-in">
+          <label>Active users (pregnant women, mothers of babies under one) <output id="o_users"></output><input type="range" id="c_users" min="5000" max="200000" step="5000" value="20000"></label>
+          <label>Questions per user per month (chat as much as she likes) <output id="o_msgs"></output><input type="range" id="c_msgs" min="1" max="100" step="1" value="10"></label>
+          <label>Red flags per 100 users per month <output id="o_red"></output><input type="range" id="c_red" min="1" max="20" step="1" value="6"></label>
+          <label>Minutes per red-flag call (on the line + case note) <output id="o_min"></output><input type="range" id="c_min" min="10" max="40" step="5" value="20"></label>
+        </div>
+        <div class="calc-out">
+          <div><strong id="r_calls"></strong>red-flag calls a day, out of <span id="r_q"></span> questions; Ana answers the rest alone</div>
+          <div><strong id="r_shift"></strong>nurses per shift, so that 9 in 10 red flags get a call within 5 minutes in the busiest hour</div>
+          <div><strong id="r_fte"></strong>full-time nurses to cover 24/7</div>
+          <div><strong id="r_cost"></strong>a year in nurse wages only (264,600 tenge a month)</div>
+        </div>
+        <p class="small calc-note">All four inputs are my assumptions, to be replaced by pilot data. However much mothers chat, only red flags reach a nurse: more questions cost electricity, not staff. The model uses standard queueing math (Erlang C), assumes the busiest hour has 1.5 times the average load, at least 2 nurses on every shift, and 5 full-time staff per round-the-clock post. Amber flags are not calls: they go to the polyclinic's morning list. <strong>The callback promise is a pilot target, not a given:</strong> if 9 in 10 red flags are not called back within 5 minutes, the pilot fails that test.</p>
+      </div>
+      <table style="margin-top:1.4rem">
+        <tr><th>How Ana could relieve pressure</th><th>Strength of the claim</th></tr>
+        <tr><td>Most questions are answered without a human, so a few nurses cover many mothers</td><td><span class="part">Operator reports:</span> PROMPTS' leadership estimates AI triage cut help-desk workload by about 12%; MomConnect's AI handled 600,000+ questions. Neither shows how many messages can safely skip a human.<sup><a href="#s27">27</a>,<a href="#s29">29</a></sup></td></tr>
+        <tr><td>City nurses serve villages remotely, so nobody has to relocate</td><td><span class="part">Design argument:</span> supported indirectly, since paying staff to move to villages has barely worked<sup><a href="#s60">60</a></sup></td></tr>
+        <tr><td>The illness log and visit summary shorten history-taking at each visit</td><td><span class="part">Hypothesis:</span> no evidence yet; to be measured in the pilot</td></tr>
+      </table>
+      <div class="riskbox"><b>Main risk: over-referral.</b> If Ana sends too many amber flags, it floods polyclinics that are already short of staff. The over-referral rate is tracked from day one, with a ceiling set before launch.</div>
+      <figcaption><strong>Where would the 15 nurses come from?</strong> An open question for the pilot. Options: experienced nurses moved off physically demanding ward work, part-time remote shifts for nurses who have left the field, or staff already on city call lines. I found no data on how many people are in each group. Workforce: Tengrinews, citing official figures;<sup><a href="#s63">63</a></sup> shortage: Ministry of Health.<sup><a href="#s59">59</a></sup></figcaption>
+    </figure>
+
+    <h3>Today vs Ana: the same question, two answers</h3>
+    <div class="prose"><p>A good general chatbot usually gets the medicine right. Pick a situation and watch where the two really differ: what happens after the answer.</p></div>
+    <div class="chips" role="group" aria-label="Choose a situation">
+      <button type="button" data-sc="fever" aria-pressed="false">3-week-old with a fever at night</button>
+      <button type="button" data-sc="memory" aria-pressed="false">Runny nose, but he's playing</button>
+      <button type="button" data-sc="pregnancy" aria-pressed="false">34 weeks pregnant, bad headache</button>
+    </div>
+    <div class="vs">
+      <div>
+        <div class="phone generic" aria-live="polite">
+          <div class="phone-head"><div class="avatar">AI</div><div><strong>A general chatbot</strong><div class="small">how many mothers ask today</div></div></div>
+          <div class="msgs" id="genMsgs"><p class="small">Choose a situation above.</p></div>
+        </div>
+        <div class="notes" id="genNotes"></div>
+      </div>
+      <div>
+        <div class="phone" aria-live="polite">
+          <div class="phone-head"><div class="avatar">A</div><div><strong>Ana</strong><div class="small">Kazakh and Russian, local protocols</div></div></div>
+          <div class="msgs" id="anaMsgs"><p class="small">Choose a situation above.</p></div>
+        </div>
+        <div class="notes" id="anaNotes"></div>
+      </div>
+    </div>
+    <p class="small" style="margin-top:.8rem">Illustrative scripts, not transcripts and not medical advice. The left phone represents a well-behaving general chatbot, not a specific product.</p>
+
+    <figure>
+      <div class="fig-title">Where a mother can turn at 3 a.m., and what each option can do</div>
+      <div class="fig-sub"><span class="yes">✓</span> yes &nbsp; <span class="part">~</span> partly / depends &nbsp; <span class="no">✗</span> no</div>
+      <div class="tablewrap">
+      <table class="cmp">
+        <tr><th></th><th>Mothers' groups (e.g. Momslife)</th><th>General chatbot</th><th>Phone hotline (e.g. iKomek 109)</th><th>Polyclinic</th><th>Ana</th></tr>
+        <tr><td>Available at 3 a.m.</td><td><span class="part">~</span></td><td><span class="yes">✓</span></td><td><span class="yes">✓</span></td><td><span class="no">✗</span></td><td><span class="yes">✓</span></td></tr>
+        <tr><td>Text, no phone call needed</td><td><span class="yes">✓</span></td><td><span class="yes">✓</span></td><td><span class="part">~</span></td><td><span class="part">~</span></td><td><span class="yes">✓</span></td></tr>
+        <tr><td>Remembers the child's history across weeks</td><td><span class="no">✗</span></td><td><span class="part">~</span></td><td><span class="no">✗</span></td><td><span class="part">~</span></td><td><span class="yes">✓</span></td></tr>
+        <tr><td>Knows Kazakhstan's protocols, 103, vaccination calendar</td><td><span class="part">~</span></td><td><span class="part">~</span></td><td><span class="yes">✓</span></td><td><span class="yes">✓</span></td><td><span class="yes">✓</span></td></tr>
+        <tr><td>Answers checked by local doctors</td><td><span class="no">✗</span></td><td><span class="no">✗</span></td><td><span class="part">~</span></td><td><span class="yes">✓</span></td><td><span class="yes">✓</span></td></tr>
+        <tr><td>Can alert a human in an emergency</td><td><span class="no">✗</span></td><td><span class="no">✗</span></td><td><span class="yes">✓</span></td><td><span class="part">~</span></td><td><span class="yes">✓</span></td></tr>
+        <tr><td>Data stays in Kazakhstan</td><td><span class="part">~</span></td><td><span class="no">✗</span></td><td><span class="yes">✓</span></td><td><span class="yes">✓</span></td><td><span class="yes">✓</span></td></tr>
+      </table>
+      </div>
+      <figcaption>My assessment. The hotline already does several things well; Ana's advantage is the combination: text at any hour, memory of the child's history, local medical grounding, and a human on red flags. General chatbots often know local basics if asked, and some keep chat history, on servers abroad; what they cannot do is act or be held accountable here. Memory has limits on both sides: a polyclinic remembers only what was written in the record, and Ana remembers only what the mother told it.</figcaption>
+    </figure>
+
+    <figure>
+      <div class="fig-title">A sick night: Ana keeps count so the mother doesn't have to</div>
+      <div class="fig-sub">At hospital admission (приёмный покой) the doctor needs exact numbers. After eight hours of vomiting, diapers and syrup, nobody has them in their head.</div>
+      <div class="memo">
+        <div class="meme" role="img" aria-label="Two panels: the questions an admissions doctor asks, and what a tired parent can realistically remember at 2 a.m.">
+          <div>
+            <h4>The admissions doctor asks</h4>
+            <ol>
+              <li>How many times did she vomit? When was the last time?</li>
+              <li>How many loose stools?</li>
+              <li>Highest temperature, and when?</li>
+              <li>What medicine, and at what time?</li>
+              <li>How much has she drunk?</li>
+              <li>When was the last wet diaper?</li>
+            </ol>
+          </div>
+          <div>
+            <h4>What anyone can remember at 2 a.m.</h4>
+            <div class="said">"She's been vomiting since the evening, many times, five or six? The fever was high, I gave her syrup around midnight. Diapers... I changed so many, I'm not sure when the last wet one was."</div>
+            <div class="doc">The details exist. They are just spread over eight hours.</div>
+          </div>
+        </div>
+        <div class="summary" id="illlog">
+          <h4>Illness log: Aru, 10 months</h4>
+          <div class="meta" id="illclock">Tonight · now 02:10 · tap to add an event</div>
+          <div class="chips" style="margin:.3rem 0 .6rem" role="group" aria-label="Log an event">
+            <button type="button" data-ev="vomit">+ Vomit</button>
+            <button type="button" data-ev="stool">+ Loose stool</button>
+            <button type="button" data-ev="temp">+ Temperature</button>
+            <button type="button" data-ev="drink">+ Drink</button>
+            <button type="button" data-ev="wet">+ Wet diaper</button>
+          </div>
+          <div id="illcard" class="card-case" style="background:#F4FAFD;border-color:#A9D3EA"></div>
+          <details style="margin-top:.6rem;font-size:.85rem"><summary style="cursor:pointer">Full timeline</summary><div id="illtl" style="margin-top:.4rem"></div></details>
+          <button type="button" class="gen" id="illreset">↻ Reset the night</button>
+        </div>
+      </div>
+      <figcaption>Illustrative. Logging is one tap per event, or the mother simply writes "she vomited again" and Ana records it. The same log feeds the nurse's case card in an emergency, and before routine check-ups Ana turns a month of notes into one page.</figcaption>
+    </figure>
+
+    <h3>Grounded in two documented cases</h3>
+    <div class="cases">
+      <div class="case">
+        <h4>PROMPTS, Kenya (Jacaranda Health)</h4>
+        <dl>
+          <dt>What was built</dt><dd>A free text-message service for pregnant women and new mothers, with an AI-sorted help desk; according to the operator, flagged mothers get a call from an agent within an hour.<sup><a href="#s27">27</a></sup></dd>
+          <dt>What it achieved</dt><dd>Reached 650,000 registered mothers in 2024 and expanded to several countries;<sup><a href="#s26">26</a></sup> in a randomized trial, small gains in knowledge and routine care and 7.4 percentage points more recommended postnatal visits, but no significant change in acting on danger signs, and deaths were not measured;<sup><a href="#s71">71</a></sup> the operator reports that TRIM-AI cut help-desk workload by about 12% and that 85% of flagged mothers went to hospital, figures not independently measured.<sup><a href="#s27">27</a></sup></dd>
+          <dt>Lesson for Ana</dt><dd>The AI sorts; humans decide. Training on local language data was key.</dd>
+        </dl>
+      </div>
+      <div class="case">
+        <h4>MomConnect, South Africa (Department of Health)</h4>
+        <dl>
+          <dt>What was built</dt><dd>A government-run maternal messaging service in all official languages, with a nurse-staffed help desk and, recently, a large-language-model "Ask a Question" service.<sup><a href="#s29">29</a>,<a href="#s31">31</a></sup></dd>
+          <dt>What it achieved</dt><dd>Over 5 million users; the AI service answered 600,000+ questions with 85% accuracy in detecting urgency (implementer-reported abstract).<sup><a href="#s29">29</a></sup></dd>
+          <dt>Lesson for Ana</dt><dd>A state can run this at national scale, but before AI the help desk's median response time was 4 hours, and 18.7% of answers were judged suboptimal or incorrect.<sup><a href="#s30">30</a></sup></dd>
+        </dl>
+      </div>
+    </div>
+    <div class="prose"><p>Kazakhstan's own case, Supermom Academy, was funded by clinics at 50 tenge per pregnant woman<sup><a href="#s22">22</a></sup> and no longer works. Ana learns from it: self-registration, state funding, success measured by outcomes.</p></div>
+  </div>
+</section>
+
+<!-- BILL -->
+<section class="chapter" id="bill">
+  <div class="wrap">
+    <div class="secnum">Section 4 · What it would cost</div>
+    <h2>The bill</h2>
+    <div class="prose"><p class="lede">Ana is priced here for a national service: about 100,000 active users a year (30% of 335,000 births), each sending about 5 messages a week, which is around 26 million messages and 52 million model calls a year (one to classify, one to answer). These are my assumptions, stated so they can be challenged.</p></div>
+
+    <div class="receipt" role="group" aria-label="The bill">
+      <h3>The bill for Ana</h3>
+      <div class="r-sub">5 cost dimensions · national scale · per year</div>
+      <div class="line"><span class="name">Environmental</span><span class="meter" data-l="1"><i></i><i></i><i></i><span>low</span></span><span class="desc">12–156 MWh of electricity on a coal-heavy grid that already runs a deficit</span></div>
+      <div class="line"><span class="name">Economic</span><span class="meter" data-l="2"><i></i><i></i><i></i><span>medium</span></span><span class="desc">Nurse wages alone: about 48 million tenge a year for 15 nurses in the pilot, rising with call volume; the full cost is not yet calculated</span></div>
+      <div class="line"><span class="name">Labor</span><span class="meter" data-l="2"><i></i><i></i><i></i><span>medium</span></span><span class="desc">Nurses' and doctors' work changes; hidden labor in writing, checking and reading distressing chats</span></div>
+      <div class="line"><span class="name">Political and governance</span><span class="meter" data-l="3"><i></i><i></i><i></i><span>high</span></span><span class="desc">An IIN-linked record of every pregnancy worry, held by the state</span></div>
+      <div class="line"><span class="name">Data ethics</span><span class="meter" data-l="3"><i></i><i></i><i></i><span>high</span></span><span class="desc">Health data of mothers and babies; a false "you're fine" can kill</span></div>
+      <div class="total"><span>Total</span><span>Cheap to run, expensive to get wrong</span></div>
+    </div>
+
+    <div class="prose">
+      <h3>Environmental: small next to the grid, but on coal</h3>
+      <p>Google measured its median Gemini text prompt at 0.24 Wh of energy and 0.26 mL of water.<sup><a href="#s39">39</a></sup> A local 70-billion-parameter model will use more; I assume up to 3 Wh per call.</p>
+      <table>
+        <tr><th>Item</th><th class="num">Low</th><th class="num">High</th></tr>
+        <tr><td>Model calls per year</td><td class="num">52 million</td><td class="num">52 million</td></tr>
+        <tr><td>Energy per call (assumed)</td><td class="num">0.24 Wh</td><td class="num">3 Wh</td></tr>
+        <tr><td>Electricity per year</td><td class="num">12.5 MWh</td><td class="num">156 MWh</td></tr>
+        <tr><td>Share of 2025 national generation (123.1 billion kWh)</td><td class="num">0.00001%</td><td class="num">0.0001%</td></tr>
+        <tr><td>Cooling water at Google's 1.15 L/kWh</td><td class="num">14 m³</td><td class="num">180 m³</td></tr>
+      </table>
+      <p>The share is tiny, but the context matters. Coal produces about 62–75% of Kazakhstan's electricity,<sup><a href="#s41">41</a></sup> and in 2025 the country consumed 124.6 billion kWh while generating 123.1 billion.<sup><a href="#s40">40</a></sup> One-time costs (fine-tuning, imported GPUs) come on top. <strong>Assessment: low, if the model is small enough for the task.</strong></p>
+
+      <h3>Economic: wages are only the part I can count</h3>
+      <p>Staffing depends on how many red-flag calls arrive and how long each takes, so the calculator in Section 4 ties the two together. At its default pilot values (20,000 users, about 40 red-flag calls a day, 20 minutes each), a 24/7 desk needs three nurses per shift, about 15 full-time staff. At the Bureau of National Statistics' 2026 average for nurses, 264,600 tenge a month,<sup><a href="#s74">74</a></sup> that is about 48 million tenge a year in wages. This is an average for the profession; night shifts and the skills a triage desk needs may raise it. Both figures are wages only. Employer costs, a reserve for sickness and leave, phone lines, equipment, maintenance, doctors' time for the answer bank, audits and testing in Kazakh are not calculated, so I cannot yet say what the service costs per year or which item is largest. <strong>Who pays:</strong> the state, through the Ministry of Health or the health insurance fund. <strong>Who profits:</strong> the IT company that builds and maintains it (Damumed, one of the leading providers, already runs systems for 2,500 medical organizations),<sup><a href="#s45">45</a></sup> hardware suppliers and, if Ana runs inside Telegram or WhatsApp, foreign platforms. <strong>Assessment: medium, with a full costing as a task for the pilot; the nurse desk must not be the first line cut.</strong></p>
+
+      <h3>Labor: whose work changes, whose work is hidden</h3>
+      <p>Nurses move to a queue the AI prioritizes, which shifts responsibility; polyclinics receive more alerts, including false ones. The hidden labor is large: doctors writing and reviewing thousands of answers, Kazakh and Russian annotators labelling messages, testers playing out emergencies, and reviewers reading real chats about miscarriage, stillbirth or violence, work that carries a psychological cost. The hybrid draws on city nurses working remotely, so it does not pull staff out of villages, but over-referral could push extra work onto rural polyclinics. The biggest labor risk is political: a ministry could treat Ana as a reason to cut home visits. <strong>Assessment: medium. Ana must add to patronage nursing, not replace it.</strong></p>
+
+      <h3>Political and governance: a register of worries</h3>
+      <p>Under Kazakhstan's Law on Artificial Intelligence (No. 230-VIII, in force since 18 January 2026), a system whose failure could seriously harm people's lives is high-risk, and its owner classifies it (Art. 17).<sup><a href="#s48">48</a>,<a href="#s36">36</a></sup> Ana is high-risk. The EU AI Act agrees: it lists emergency healthcare patient triage as high-risk in Annex III.<sup><a href="#s50">50</a>,<a href="#s51">51</a></sup> The personal data law requires storage in Kazakhstan,<sup><a href="#s38">38</a></sup> which a locally hosted KAZ-LLM satisfies but a Telegram bot may not.</p>
+      <p>The deeper problem is who controls the record. My choice of IIN at registration may make follow-up faster, which the pilot has to test, but it creates a state-held, identity-linked record of what women ask about their bodies: an unwanted pregnancy, a husband's violence, dark thoughts after birth. Buribayeva et al. show that Kazakhstan's Digital Family Card already profiles households, including health variables, and that "technologically nothing prevents" secondary uses of such profiles. They also warn that one ministry acting as regulator, operator and promoter of AI weakens outside oversight.<sup><a href="#s52">52</a></sup> Ana's data could flow into exactly this infrastructure, and Damumed has already faced accusations of exposing personal data.<sup><a href="#s44">44</a></sup> Roberts et al. note that broad AI principles are vague and rarely enforced,<sup><a href="#s53">53</a></sup> so the table below turns each Week 12 framework into a concrete requirement. <strong>Assessment: high.</strong></p>
+    </div>
+
+    <figure>
+      <div class="fig-title">Ana against the Week 12 frameworks</div>
+      <div class="fig-sub">What each framework requires or warns, and what it means for the design</div>
+      <table>
+        <tr><th>Framework</th><th>Requires or warns</th><th>So Ana must</th></tr>
+        <tr><td><strong>Kazakhstan, Law on AI (2025)</strong><sup><a href="#s48">48</a></sup></td><td>High-risk if failure can harm lives; owner self-classifies (Art. 17). Users must be told a service uses AI (Art. 21), may get explanations and refuse AI (Art. 16). Detecting emotions without consent is prohibited (Art. 17). Trusted lists require an audit, including of training data (Arts. 19–20).</td><td>Register as high-risk and pass the trusted-list audit; always offer a human route; never score mood or depression without explicit consent.</td></tr>
+        <tr><td><strong>EU AI Act (2024)</strong><sup><a href="#s50">50</a></sup></td><td>Emergency healthcare patient triage is high-risk (Annex III, point 5(d)).<sup><a href="#s51">51</a></sup></td><td>Meet the stricter benchmark: risk management, logging and human oversight.</td></tr>
+        <tr><td><strong>OECD AI Principles (2019)</strong><sup><a href="#s54">54</a></sup></td><td>Human rights incl. privacy and fairness; transparency; robustness and safety; accountability.</td><td>Publish error rates; name one accountable body.</td></tr>
+        <tr><td><strong>UNESCO Recommendation (2021)</strong><sup><a href="#s55">55</a></sup></td><td>Life-and-death decisions should not be ceded to AI (§36). In health: humans take final decisions, consent must not block access to care, patients help design systems (§§122–123).</td><td>A nurse decides every red flag; refusing data sharing never blocks help; mothers test the design.</td></tr>
+        <tr><td><strong>Buribayeva et al. (2026)</strong><sup><a href="#s52">52</a></sup></td><td>Hidden risks from centralized data, role concentration and sovereign language models; calls for independent audit, appeal and purpose limitation.</td><td>Stay walled off from the Digital Family Card and Smart Data Ukimet; auditor outside the ministry.</td></tr>
+        <tr><td><strong>Roberts et al. (2024)</strong><sup><a href="#s53">53</a></sup></td><td>Global governance is a weak "regime complex"; fewer than a quarter of UNESCO signatories worked on implementing its tools.</td><td>Not rely on principles: write the conditions into law and contracts.</td></tr>
+      </table>
+    </figure>
+
+    <div class="prose">
+      <h3>Data ethics: consent, babies, and the cost of a false "you're fine"</h3>
+      <p>Ana needs health data from mothers and about babies, who cannot consent; some mothers are themselves minors. Consent must be separate and explicit for three things: using the service, escalating to a nurse, and any use of chats to improve the model. Sensitive topics (abortion, violence, mental health) should never be reported onward except where a life is in danger. Ana's own rule is that chats go only to medical workers, with the mother's consent in the app, never to police or employers. But an app cannot promise more than the law: the Health Code allows medical secrets to be disclosed without consent in some cases, including requests from investigators or a court in connection with a case, and where there are grounds to believe harm was caused by an unlawful act.<sup><a href="#s68">68</a></sup> Chats are not sent automatically, but a lawful request could reach them. Closing that door needs a change in the law (my condition 3), and the app must say so at sign-up. What could go wrong is serious. A false reassurance can delay an ambulance; Bean et al. show that a chatbot's medical knowledge does not protect users from wrong decisions.<sup><a href="#s33">33</a></sup> A false alarm wears out nurses and mothers' trust. Weaker performance in Kazakh would mean the women with the least access get the worst answers. Households without mobile internet (3.3%<sup><a href="#s46">46</a></sup>) depend on the SMS fallback, which is less private than an encrypted app. <strong>Assessment: high.</strong></p>
+    </div>
+
+    <div class="verdict" id="verdict">
+      <div class="stamp">Verdict</div>
+      <h3>Yes, but only as a pilot under conditions, and no if the state won't firewall the data</h3>
+      <p>The bill shows a cheap system with expensive failure modes. The environmental and economic costs are manageable. The political and ethical costs are not manageable by default: they depend on choices the state may not want to make. So Kazakhstan should build Ana only if it accepts all of these conditions:</p>
+      <ol>
+        <li><strong>Humans decide every emergency.</strong> A remote 24/7 nurse desk, staffed from cities, calls back on every red flag and coordinates with 103; the local patronage nurse or feldsher follows up in the morning. The AI never diagnoses or prescribes.</li>
+        <li><strong>Test with real mothers first.</strong> Run user testing in Kazakh and Russian, as Bean et al. recommend, and publish the missed-red-flag rate before launch.</li>
+        <li><strong>A legal firewall.</strong> Data stays in Kazakhstan, is never used for training without separate consent, and a change in the law ensures it cannot be shared with police, employers, or state profiles such as the Digital Family Card, except to save a life. This is a proposal: today the Health Code lets investigators and courts request medical records in connection with a case, so the app alone cannot promise it, and it must tell mothers so.</li>
+        <li><strong>An independent auditor</strong> outside the Ministry of AI and Digital Development, with the power to suspend the system, so regulator and operator are not the same body.</li>
+        <li><strong>A human route, always.</strong> Mothers can refuse the AI and reach a nurse, as the AI Law allows, and no mood or depression detection happens without explicit consent.</li>
+        <li><strong>Pilot where the gaps are.</strong> Start in two regions with weak follow-up, such as Aktobe and Akmola, plus a comparison region.</li>
+        <li><strong>Measure outcomes, not users.</strong> Track missed red flags, over-referrals, callback times and the time polyclinics spend per visit; expand to other regions, and from babies under one to children under three, only if the pilot meets targets set in advance. The callback promise is one of them: for example, 9 in 10 red flags called back within 5 minutes.</li>
+        <li><strong>Add, don't replace.</strong> Patronage nurses and home visits keep their budgets.</li>
+      </ol>
+      <p><strong>If the state will not accept conditions 3 and 4, my answer is no.</strong> A system that turns mothers' private fears into an identity-linked state record, without independent oversight, would cost more in trust than it saves in emergencies, and women who stop asking honest questions are worse off than women who ask Momslife.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSPARENCY -->
+<section class="chapter" id="transparency">
+  <div class="wrap">
+    <div class="secnum">AI transparency statement</div>
+    <h2>What the AI did, and what I decided</h2>
+    <div class="transparency">
+      <div><h3>My contribution</h3>
+      <p>I chose the problem and made the design decisions. I moved through several rejected topics (an AI inspector for contractors' road and sidewalk work, a bus-route chatbot, preventive road-crack detection, a fall-detection bracelet) before choosing maternal health, partly from my own experience of pregnancy in 2024. I tested the Supermom Academy app myself, found it broken, and questioned its 400,000-user claim. I noticed that mothers use Momslife and chatbots rather than state tools. I identified the problems general chatbots have with local context (over-diagnosis, foreign emergency numbers), argued that Ana beats a phone hotline because it works by text and remembers the child's history, supplied what I know as a mother about how often infants are seen, asked for the comparison dialogues and escalation walkthrough, wrote the opening dialogue on the first screen, and proposed the illness log for hospital admission, so a mother does not have to remember every vomit, dose and diaper. I designed the core: self-registration rather than clinic enrollment, escalation to a human on red flags, and IIN at registration so the woman and the nurse know her attached polyclinic, a choice I kept after weighing its privacy cost.</p></div>
+      <div><h3>Claude's contribution (Anthropic, Claude)</h3>
+      <p>Claude searched for and summarized sources, ran a structured search of Kazakhstan's maternal health data, checked facts such as the AI law and energy figures, drafted the text of the four sections, and wrote the code for this website and its figures. It also argued against several of my ideas and pointed out weaknesses, such as the privacy cost of IIN-linked data.</p></div>
+      <div><h3>What I accepted and what I rejected</h3>
+      <p>I accepted Claude's suggestion to narrow the project to one function and leave out child growth tracking. I accepted the reframing from "rural access" to regional gaps and the time between visits after seeing the MICS data. I rejected the option of registering by phone number only and kept the IIN so her attached polyclinic is known. I rejected Claude's first version of the chatbot comparison as an exaggerated strawman: general chatbots usually get the medicine right, so the final version shows a competent one and locates the difference in what happens after the answer. I rejected dropping the project in favor of easier topics. I supplied the Week 12 readings and legal texts (OECD, UNESCO, the EU AI Act, Kazakhstan's AI Law and AI Concept, Buribayeva et al., Roberts et al.) that the governance assessment is built on. I chose the hybrid escalation model (a remote nurse desk plus the local patronage nurse or feldsher) after weighing three options Claude laid out.</p></div>
+      <div><h3>Checks</h3>
+      <p>Every number on this site links to a source. Some MICS figures were extracted from a long PDF by an AI tool and should be read against the original tables; the environmental and staffing figures are calculations from stated assumptions, not measurements.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="sources">
+  <div class="wrap">
+    <h2>Sources</h2>
+    <ol class="sources">
+      <li id="s1" value="1">Bureau of National Statistics & UNICEF (2025). <a href="https://stat.gov.kz/upload/medialibrary/40a/bqc5xe66p4fvfq8i2x8zpip3pg46ptd4/MICS7KAZ%20SFR%2020251103%20EN%20v2.pdf">Kazakhstan MICS 2024 Survey Findings Report</a>.</li>
+      <li id="s2" value="2">Bureau of National Statistics. <a href="https://stat.gov.kz/en/cluster/mics-2024/reports">MICS 2024 reports page</a>.</li>
+      <li id="s3" value="3">Inbusiness.kz (2025). <a href="https://inbusiness.kz/ru/last/chto-delaetsya-v-kazahstane-dlya-snizheniya-mladencheskoj-i-materinskoj-smertnosti">What is being done to reduce infant and maternal mortality</a> (Ministry of Health figures).</li>
+      <li id="s4" value="4">Bizmedia.kz (5 Aug 2025). <a href="https://bizmedia.kz/2025-08-05-regiony-s-vysokoj-smertnostyu-rozhenicz-i-novorozhdennyh-nazvali-v-minzdrave/">Ministry of Health names regions with high maternal and newborn mortality</a>.</li>
+      <li id="s5" value="5">NUR.KZ / Ranking.kz (Jun 2026). <a href="https://www.nur.kz/society/2393197-nazvan-region-kazahstana-s-samoy-vysokoy-mladencheskoy-smertnostyu/">Region with the highest infant mortality named</a>.</li>
+      <li id="s6" value="6">UNFPA Kazakhstan (2019). <a href="https://kazakhstan.unfpa.org/sites/default/files/pub-pdf/analiz_rezultativnosti_regionalizacii_v_rk_2019_.pdf">Analysis of the effectiveness of perinatal regionalization in Kazakhstan</a>.</li>
+      <li id="s7" value="7">BES.media (2026). <a href="https://bes.media/news/rozhdaemost-v-kazahstane-snizilas-na-16-za-tri-goda-minzdrav/">Birth rate fell by 16% in three years</a> (BNS figures).</li>
+      <li id="s8" value="8">Chuvakova, T. & Karin, B. (2017). <a href="https://ojs3.gpmu.org/index.php/medorg/article/download/203/216">Effect of the transition to WHO live-birth criteria in Kazakhstan</a>.</li>
+      <li id="s9" value="9">IRIN / The New Humanitarian (2003). <a href="https://www.thenewhumanitarian.org/news/2003/07/23/reassessing-infant-mortality-figures">Reassessing infant mortality figures</a>.</li>
+      <li id="s10" value="10">Zhamantayev, O. et al. (2023). <a href="https://mdpi.com/1660-4601/20/3/2184">Maternal mortality in Kazakhstan and the COVID-19 pandemic</a>. IJERPH 20(3), 2184.</li>
+      <li id="s11" value="11">Kursiv (2022). <a href="https://kz.kursiv.media/2022-08-31/materinskaya-smertnost-v-kazahstane-pobila-rekord-poslednih-desyati-let/amp/">Maternal mortality hits a ten-year record</a>.</li>
+      <li id="s12" value="12">Nukeshtayeva, K. et al. (2024). <a href="https://www.frontiersin.org/articles/10.3389/fpubh.2024.1337564/full">Regional trends in maternal mortality in Kazakhstan</a>. Frontiers in Public Health.</li>
+      <li id="s13" value="13">Marat, A. et al. (2025). <a href="https://www.mdpi.com/2076-3271/13/2/77">Confidential audit of perinatal mortality in Kazakhstan</a>.</li>
+      <li id="s14" value="14">Abdieva, Z. et al. (2020). <a href="https://cyberleninka.ru/article/n/prevalence-of-postpartum-depressive-disorder-among-women-in-almaty">Prevalence of postpartum depressive disorder among women in Almaty</a>.</li>
+      <li id="s15" value="15">NewTimes.kz (2026). <a href="https://newtimes.kz/obshchestvo/224593-beremennost-i-osms-v-kazakhstane-chto-polozheno-besplatno-i-kto-platit-vznosy">Pregnancy and health insurance: what is free</a>.</li>
+      <li id="s16" value="16">24.kz (2026). <a href="https://24.kz/ru/news/zdravookhranenie/771837-v-kazakhstane-rezko-snizilas-materinskaya-smertnost-nazvany-prichiny">Maternal mortality fell sharply: reasons named</a>; NSCHD yearbook via <a href="https://inbusiness.kz/ru/last/vyshel-statsbornik-o-zdorove-kazahstancev">Inbusiness.kz</a>.</li>
+      <li id="s17" value="17">Bureau of National Statistics & UNICEF. <a href="https://stat.gov.kz/upload/medialibrary/922/21738w9g17uc2usgpudj0sut4xa0g360/Child%20mortality.pdf">MICS 2024 Child Mortality snapshot</a>.</li>
+      <li id="s18" value="18">UNICEF Kazakhstan (Sep 2025). <a href="https://www.unicef.org/kazakhstan/en/press-releases/akimat-shymkent-unicef-and-bureau-national-statistics-hold-meeting-mics-findings">Shymkent MICS findings</a>.</li>
+      <li id="s19" value="19">UNICEF Kazakhstan (2025). <a href="https://www.unicef.org/kazakhstan/en/press-releases/unicef-almaty-regional-administration-and-bureau-national-statistics-identify">Almaty region MICS findings</a>.</li>
+      <li id="s20" value="20">UNICEF Kazakhstan (Aug 2025). <a href="https://www.unicef.org/kazakhstan/en/press-releases/akmola-region-akimat-unicef-and-bureau-national-statistics-discuss-key-findings-mics">Akmola region MICS findings</a>.</li>
+      <li id="s21" value="21">Bizmedia.kz (Aug 2025). <a href="https://bizmedia.kz/2025-08-05-kazahstan-dobilsya-vpechatlyayushhego-progressa-v-snizhenii-materinskoj-i-mladencheskoj-smertnosti-yunisef/">UNICEF on progress in maternal and infant mortality</a>.</li>
+      <li id="s22" value="22">Kapital.kz. <a href="https://kapital.kz/tehnology/79372/iskusstvennyy-intellekt-snizit-nagruzku-na-vrachey.html">Kazakhstanis developed a monitoring system for pregnant women</a> (Supermom Academy).</li>
+      <li id="s23" value="23">Forbes Kazakhstan (2021). <a href="https://forbes.kz/articles/klub_dlya_supermam_1617694304/amp">A club for supermoms</a>.</li>
+      <li id="s24" value="24">Innovations for Poverty Action. <a href="https://poverty-action.org/impact-digital-health-platform-maternal-and-newborn-care-kenya">The impact of a digital health platform on maternal and newborn care in Kenya</a>.</li>
+      <li id="s25" value="25">PROMPTS implementation study, Nairobi (2024). <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10967085">PMC10967085</a>.</li>
+      <li id="s26" value="26">IDRC. <a href="https://idrc-crdi.ca/en/stories/technology-support-maternity">Technology in support of maternity</a>.</li>
+      <li id="s27" value="27">Penn State (2023). <a href="https://www.psu.edu/news/information-sciences-and-technology/story/new-ai-tool-helps-provide-better-care-pregnant-women">New AI tool helps provide better care for pregnant women</a> (TRIM-AI).</li>
+      <li id="s28" value="28">TRIM-AI paper, AAAI 2023. <a href="https://ojs.aaai.org/index.php/AAAI/article/view/26709/26481">Triage for mothers using AI</a>.</li>
+      <li id="s29" value="29">Reach Digital Health (2026). <a href="https://www.populationmedicine.eu/AI-Powered-Personalisation-at-Scale-Bridging-the-Equity-Gap-in-Maternal-and-Child,227345,0,2.html">AI-powered personalisation at scale: MomConnect</a>. Population Medicine abstract.</li>
+      <li id="s30" value="30">Engelhard, M. et al. (2018). <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5922466">Optimising mHealth helpdesk responsiveness in South Africa: towards automated message triage</a>. BMJ Global Health.</li>
+      <li id="s31" value="31">Xiong, K. et al. (2018). <a href="https://www.measureevaluation.org/resources/publications/ja-18-252">The MomConnect helpdesk</a>. BMJ Global Health 3:e000578.</li>
+      <li id="s32" value="32">Ayers, J. W. et al. (2023). <a href="https://pubmed.ncbi.nlm.nih.gov/37115527/">Comparing physician and AI chatbot responses to patient questions</a>. JAMA Internal Medicine 183(6).</li>
+      <li id="s33" value="33">Bean, A. M. et al. (2025). <a href="https://arxiv.org/abs/2504.18919">Clinical knowledge in LLMs does not translate to human interactions</a>. Nature Medicine, doi:10.1038/s41591-025-04074-y.</li>
+      <li id="s34" value="34">Healio (Feb 2025). <a href="https://cm.healio.com/news/womens-health-ob-gyn/20250214/chatgpt-should-be-used-with-caution-for-common-pregnancy-questions">ChatGPT "should be used with caution" for common pregnancy questions</a> (Pregnancy Meeting abstract).</li>
+      <li id="s35" value="35">WHO (18 Jan 2024). <a href="https://www.who.int/news/item/18-01-2024-who-releases-ai-ethics-and-governance-guidance-for-large-multi-modal-models">AI ethics and governance guidance for large multi-modal models</a>.</li>
+      <li id="s36" value="36">EY Kazakhstan (Dec 2025). <a href="https://www.ey.com/en_kz/technical/tax-alerts/2025/12/law-on-artificial-intelligence-kazakhstan">Law on Artificial Intelligence</a>.</li>
+      <li id="s37" value="37">JD Supra. <a href="https://www.jdsupra.com/legalnews/global-regulatory-tracker-kazakhstan-6847837/">Global regulatory tracker: Kazakhstan</a>.</li>
+      <li id="s38" value="38">Law of the Republic of Kazakhstan No. 94-V <a href="https://prg.kz/m/amp/document/31396226/2/120000">"On Personal Data and Their Protection"</a> (storage in Kazakhstan).</li>
+      <li id="s39" value="39">Google Cloud (Aug 2025). <a href="https://cloud.google.com/blog/products/infrastructure/measuring-the-environmental-impact-of-ai-inference">Measuring the environmental impact of AI inference</a>.</li>
+      <li id="s40" value="40">Trend.az (Jan 2026). <a href="https://www.trend.az/casia/kazakhstan/4145602.html">Kazakhstan's energy gamble</a> (Ministry of Energy figures).</li>
+      <li id="s41" value="41">The Astana Times (Jun 2026). <a href="https://astanatimes.com/2026/06/coal-accounts-for-over-60-of-kazakhstans-electricity-as-its-energy-mix-diversifies/">Coal accounts for over 60% of Kazakhstan's electricity</a>; Samruk-Energy <a href="https://ar2025.samruk-energy.kz/en/index/market-review.html">market review 2025</a> (75% from coal-fired plants).</li>
+      <li id="s42" value="42">ISSAI, Nazarbayev University. <a href="https://issai.nu.edu.kz/kazllm/">ISSAI KAZ-LLM</a>.</li>
+      <li id="s44" value="44">Tengrinews. <a href="https://tengrinews.kz/kazakhstan_news/damumed-obvinili-utechke-personalnyih-dannyih-kazahstantsev-412604/">Damumed accused of leaking personal data</a>.</li>
+      <li id="s45" value="45">ISSAI (Jun 2026). <a href="https://issai.nu.edu.kz/2026/06/16/issai-and-damumed-presented-an-ai-powered-voice-assistant-to-help-physicians-reduce-administrative-burden/">ISSAI and Damumed AI voice assistant</a>.</li>
+      <li id="s46" value="46">Bizmedia.kz (Jul 2026). <a href="https://bizmedia.kz/2026-07-20-ne-vezde-odinakovo-v-kakih-regionah-kazahstana-huzhe-vsego-s-mobilnym-internetom/">Mobile internet by region</a> (BNS household survey).</li>
+      <li id="s48" value="48">Law of the Republic of Kazakhstan No. 230-VIII "On Artificial Intelligence" (17 Nov 2025). <a href="https://adilet.zan.kz/eng/docs/Z2500000230">Adilet</a>; consolidated text used for Arts. 15–21: <a href="https://pavlodar.com/zakon/?all=040004&amp;dok=07005">pavlodar.com</a>.</li>
+      <li id="s49" value="49">Government of Kazakhstan (2024). <a href="https://adilet.zan.kz/rus/docs/P2400000592">Concept for the Development of AI for 2024–2029</a>, Resolution No. 592.</li>
+      <li id="s50" value="50">Regulation (EU) 2024/1689 <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj">(Artificial Intelligence Act)</a>.</li>
+      <li id="s51" value="51">McCann FitzGerald (2026). <a href="https://www.mccannfitzgerald.com/knowledge/technology-and-innovation/essential-services-spotlight-eu-ai-act-draft-guidelines-on-high-risk-ai-classification">EU AI Act draft guidelines on high-risk classification: essential services</a> (Annex III point 5(d)).</li>
+      <li id="s52" value="52">Buribayeva, M., Khamzina, Z. &amp; Buribayev, Y. (2026). Potential negative effects of artificial intelligence in Kazakhstan's public sector: an analysis of hidden risks. <em>Frontiers in Artificial Intelligence</em> 9:1781993. <a href="https://doi.org/10.3389/frai.2026.1781993">doi:10.3389/frai.2026.1781993</a>.</li>
+      <li id="s53" value="53">Roberts, H., Hine, E., Taddeo, M. &amp; Floridi, L. (2024). Global AI governance: barriers and pathways forward. <em>International Affairs</em> 100(3), 1275–1286. <a href="https://doi.org/10.1093/ia/iiae073">doi:10.1093/ia/iiae073</a>.</li>
+      <li id="s54" value="54">OECD (2019). <a href="https://legalinstruments.oecd.org/en/instruments/OECD-LEGAL-0449">Recommendation of the Council on Artificial Intelligence</a> (AI Principles).</li>
+      <li id="s56" value="56">Kazinform (2025). <a href="https://www.inform.kz/ru/v-kazahstane-poyavyatsya-patronazhnie-medsestri-dlya-vizitov-k-beremennim-i-novorozhdyonnim-2ff4d3">Patronage nurses will visit pregnant women and newborns</a> (order in force from 6 Sep 2025).</li>
+      <li id="s57" value="57">Kazinform (2025). <a href="https://www.inform.kz/ru/terapevti-hirurgi-i-pediatri-kakih-spetsialistov-ne-hvataet-v-kazahstane-729d42">Therapists, surgeons and pediatricians: which specialists Kazakhstan lacks</a>.</li>
+      <li id="s58" value="58">WHO. <a href="https://www.who.int/teams/global-malaria-programme/elimination/countries-and-territories-certified-malaria-free-by-who">Countries and territories certified malaria-free by WHO</a> (Kazakhstan, 2012).</li>
+      <li id="s59" value="59">Ministry of Health of Kazakhstan (2025). <a href="https://www.gov.kz/memleket/entities/dsm/press/news/details/1023122?lang=ru">Doctor shortage in Kazakhstan fell by 20%</a> (shortage at end of 2024: 3,986 doctors, 4,230.75 mid-level staff).</li>
+      <li id="s60" value="60">Jobalayeva, B. et al. (2024). <a href="https://doi.org/10.1186/s12960-024-00905-0">The impact of incentive scheme on rural healthcare workforce availability: a case study of Kazakhstan</a>. <em>Human Resources for Health</em> 22.</li>
+      <li id="s62" value="62">BES.media (2026). <a href="https://bes.media/news/materinskaya-smertnost-v-kazahstane-snizilas-pochti-v-chetyre-raza-za-10-let/">Maternal mortality in Kazakhstan fell more than fourfold in 10 years</a> (BNS data for 2024).</li>
+      <li id="s63" value="63">Tengrinews (2025). <a href="https://tengrinews.kz/article/paradoks-kazaxstanskogo-zdravooxraneniia-vypusknikov-mnogo-3563/">The paradox of Kazakhstan's healthcare: many graduates, too few doctors</a> (191,728 mid-level staff at the start of 2025).</li>
+      <li id="s64" value="64">Thaddeus, S. &amp; Maine, D. (1994). <a href="https://pubmed.ncbi.nlm.nih.gov/8042057/">Too far to walk: maternal mortality in context</a>. <em>Social Science &amp; Medicine</em> 38(8), 1091–1110.</li>
+      <li id="s55" value="55">UNESCO (2021). <a href="https://unesdoc.unesco.org/ark:/48223/pf0000381137">Recommendation on the Ethics of Artificial Intelligence</a>.</li>
+      <li id="s65" value="65">Forbes.kz / Kazinform (28 Feb 2017). <a href="https://forbes.kz/news/newsid_136894">For pregnant women in Karaganda, an app with an SOS button to call the ambulance</a> (project "Remote prenatal patronage with SOS function").</li>
+      <li id="s66" value="66">Baimuratov, O., Gnatyuk, S. &amp; Salykbayeva, T. (2021). <a href="https://avesis.sdu.edu.tr/yayin/6510fd64-737e-48af-84b7-197107b9b57f/mobile-application-for-healthy-maternal-behavior-to-reduce-fetal-mortality">Mobile Application for Healthy Maternal Behavior to Reduce Fetal Mortality</a>. ICTERI 2021, Communications in Computer and Information Science 1635, pp. 469–479.</li>
+      <li id="s67" value="67">Tleukulova, Y. et al. (2026). <a href="https://www.mdpi.com/2078-2489/17/11/1110">MamaCare: A Multi-Agent Large Language Model Platform for Perinatal Mental Health Support, Risk Assessment, and Triage in Kazakhstan</a>. <em>Information</em> 17(11), 1110.</li>
+      <li id="s68" value="68">Code of the Republic of Kazakhstan No. 360-VI "On Public Health and the Healthcare System" (2020), Article 273, para. 4: <a href="https://adilet.zan.kz/rus/docs/K2000000360">Adilet</a>; readable text published by the Ministry of Health: <a href="https://www.gov.kz/org/dsm/documents/details/51381">gov.kz</a>.</li>
+      <li id="s69" value="69">Bureau of National Statistics. <a href="https://stat.gov.kz/ru/open-data/stat-medicine/474270/">Maternal mortality ratio: indicator metadata</a> (last update 31 Dec 2025, next 31 Dec 2026).</li>
+      <li id="s70" value="70">Kazinform (2026). <a href="https://inform.kz/ru/materinskaya-smertnost-snizilas-na-43-v-pervom-kvartale-minzdrav-rk-c94f40c7">Maternal mortality fell 43% in the first quarter, Ministry of Health</a>.</li>
+      <li id="s71" value="71">Vatsa, R. et al. (2025). <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11835334/">Impact evaluation of a digital health platform empowering Kenyan women across the pregnancy-postpartum care continuum: a cluster randomized controlled trial</a>. <em>PLOS Medicine</em> 22(2): e1004527.</li>
+      <li id="s72" value="72">Kazinform (2025). <a href="https://www.inform.kz/ru/osms-dlya-beremennih-chto-nuzhno-znat-34075d">Health insurance for pregnant women: what to know</a>.</li>
+      <li id="s73" value="73">Informburo.kz. <a href="https://informburo.kz/cards/kakie-besplatnye-medicinskie-uslugi-polozeny-beremennym">Which free medical services pregnant women are entitled to</a>.</li>
+      <li id="s74" value="74">Bureau of National Statistics (14 Oct 2026), salaries by occupation, survey of employees who worked all of April, as reported by <a href="https://finratings.kz/news/17175-skolko-poluchaiut-na-ruki-vrachi-medsiostry-inzhenery-i-voditeli-v-kazakhstane/">Finratings.kz</a>; Bureau release: <a href="https://stat.gov.kz/ru/news/pokazateli-zarabotnoy-platy-rabotnikov-po-professiyam-i-dolzhnostyam-v-respublike-kazakhstan/">Wage indicators by profession</a>.</li>
+      <li id="s75" value="75">Statbase (compiling Bureau of National Statistics data). <a href="https://statbase.ru/data/kaz-maternal-mortality-ratio/">Maternal mortality ratio, Kazakhstan</a> (2022: 14.05; 2023: 9.58).</li>
+      <li id="s76" value="76">WHO Regional Office for Europe (2020). <a href="https://www.who.int/europe/news/item/28-02-2020-smartphone-app-aids-midwives-in-kyrgyzstan">Smartphone app aids midwives in Kyrgyzstan</a> (Safe Delivery App).</li>
+      <li id="s77" value="77">UNFPA Kyrgyzstan (22 Apr 2025). <a href="https://kyrgyzstan.unfpa.org/en/news/mobile-application-pregnant-women-amma-digital-support-women-kyrgyzstan-during-pregnancy">Mobile application for pregnant women amma: digital support for women in Kyrgyzstan</a>.</li>
+    </ol>
+  </div>
+</section>
+
+</main>
+<section class="closing" id="closing">
+  <div class="wrap">
+    <svg class="logo xl" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="31" fill="#1C8FC9"/><path d="M17 49 A17 17 0 1 1 47 41" fill="none" stroke="#F3F6F7" stroke-width="6" stroke-linecap="round"/><circle cx="41" cy="17" r="5.5" fill="#F3F6F7"/><circle cx="31" cy="36" r="8" fill="#E2A70B"/></svg>
+    <div class="closing-name">Ana</div>
+    <p class="closing-kk" lang="kk">Әр сұрағыңа жауап,<br>әр қадамыңа қолдау</p>
+    <p class="closing-en">An answer to every question, support for every step</p>
+  </div>
+</section>
+<footer><div class="wrap">PLS419 semester project · Zarema · Nazarbayev University · November 2026</div></footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var NS='http://www.w3.org/2000/svg';
+  function el(tag, attrs, parent){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
+
+  /* Hero timeline: 92 weeks; birth at week 40 */
+  var W=1000, weeks=92, px=W/weeks;
+  var contacts=[8,12,16,20,26,30,34,38];           // illustrative antenatal visits (weeks)
+  var infant=[];for(var m=1;m<=12;m++)infant.push(40+m*52/12-1); // monthly check-ups
+  var g=document.getElementById('tl-dots');
+  var all=contacts.map(function(w){return {w:w,r:6,c:'#1C8FC9'}})
+    .concat([{w:40,r:9,c:'#10263A'}])
+    .concat(infant.map(function(w){return {w:w,r:6,c:'#1C8FC9'}}));
+  var dots=all.map(function(d){return el('circle',{cx:(d.w*px).toFixed(1),cy:70,r:d.r,fill:d.c,opacity:reduce?1:0},g)});
+  var gap=document.getElementById('tl-gap'), cnt=document.getElementById('tl-count');
+  function runTimeline(){
+    if(reduce){gap.setAttribute('width',W);return;}
+    dots.forEach(function(d,i){setTimeout(function(){d.style.transition='opacity .35s';d.setAttribute('opacity',1)},i*90)});
+    var start=null,dur=1600,delay=all.length*90+200;
+    setTimeout(function(){requestAnimationFrame(function step(t){if(!start)start=t;var p=Math.min(1,(t-start)/dur);var e=1-Math.pow(1-p,3);gap.setAttribute('width',(W*e).toFixed(1));cnt.textContent=(99.4*e).toFixed(1);if(p<1)requestAnimationFrame(step);})},delay);
+  }
+  if(!reduce) cnt.textContent='0.0';
+  runTimeline();
+
+  /* Slope chart */
+  (function(){
+    var s=document.getElementById('slope'); if(!s)return;
+    var y=function(v){return 170-(v-4.6)/(6.8-4.6)*140};
+    el('line',{x1:70,y1:20,x2:70,y2:175,stroke:'#E3EAED'},s);el('line',{x1:230,y1:20,x2:230,y2:175,stroke:'#E3EAED'},s);
+    [['Urban',5.70,5.02,'#1C8FC9'],['Rural',6.26,6.43,'#E2A70B']].forEach(function(r){
+      el('line',{x1:70,y1:y(r[1]),x2:230,y2:y(r[2]),stroke:r[3],'stroke-width':3},s);
+      el('circle',{cx:70,cy:y(r[1]),r:5,fill:r[3]},s);el('circle',{cx:230,cy:y(r[2]),r:5,fill:r[3]},s);
+      var t=el('text',{x:62,y:y(r[1])+4,'text-anchor':'end','font-size':12,fill:'#10263A','font-family':'Golos Text, sans-serif'},s);t.textContent=r[1].toFixed(2);
+      var t2=el('text',{x:238,y:y(r[2])+4,'font-size':12,fill:'#10263A','font-family':'Golos Text, sans-serif'},s);t2.textContent=r[2].toFixed(2)+' '+r[0].toLowerCase();
+    });
+    var a=el('text',{x:70,y:195,'text-anchor':'middle','font-size':12,fill:'#3B5163','font-family':'Golos Text, sans-serif'},s);a.textContent='Q1 2025';
+    var b=el('text',{x:230,y:195,'text-anchor':'middle','font-size':12,fill:'#3B5163','font-family':'Golos Text, sans-serif'},s);b.textContent='Q1 2026';
+  })();
+
+  /* Dumbbell / range chart */
+  (function(){
+    var s=document.getElementById('dumbbell'); if(!s)return;
+    var rows=[
+      {k:'4+ antenatal visits',min:74.7,minL:'Atyrau 74.7',max:100,maxL:'100',nat:91.9,u:93.2,r:90.0},
+      {k:'8+ antenatal visits',min:26.1,minL:'Aktobe 26.1',max:98.8,maxL:'Abay 98.8',nat:68.1,u:70.7,r:64.4},
+      {k:'First visit in first trimester',min:76.1,minL:'Atyrau 76.1',max:98.7,maxL:'Kyzylorda 98.7',nat:91.3,u:92.0,r:90.2}
+    ];
+    var x0=250,x1=870,x=function(v){return x0+(v-20)/(100-20)*(x1-x0)};
+    var f='Golos Text, sans-serif';
+    [20,40,60,80,100].forEach(function(v){el('line',{x1:x(v),y1:10,x2:x(v),y2:235,stroke:'#E3EAED'},s);var t=el('text',{x:x(v),y:252,'text-anchor':'middle','font-size':12,fill:'#3B5163','font-family':f},s);t.textContent=v+'%';});
+    rows.forEach(function(r,i){
+      var cy=45+i*75;
+      var lab=el('text',{x:0,y:cy+5,'font-size':14,fill:'#10263A','font-weight':600,'font-family':f},s);lab.textContent=r.k;
+      el('rect',{x:x(r.min),y:cy-9,width:x(r.max)-x(r.min),height:18,rx:9,fill:'#C9D6DC'},s);
+      var a=el('text',{x:x(r.min),y:cy-16,'font-size':11.5,fill:'#3B5163','font-family':f},s);a.textContent=r.minL;
+      var b=el('text',{x:x(r.max),y:cy-16,'text-anchor':'end','font-size':11.5,fill:'#3B5163','font-family':f},s);b.textContent=r.maxL;
+      el('rect',{x:x(r.nat)-1.5,y:cy-14,width:3,height:28,fill:'#10263A'},s);
+      el('circle',{cx:x(r.u),cy:cy,r:7,fill:'#1C8FC9',stroke:'#fff','stroke-width':2},s);
+      el('circle',{cx:x(r.r),cy:cy,r:7,fill:'#E2A70B',stroke:'#fff','stroke-width':2},s);
+      var c=el('text',{x:Math.min(x(Math.max(r.u,r.r))+10,x(100)),y:cy+28,'text-anchor':'end','font-size':11.5,fill:'#3B5163','font-family':f},s);c.textContent='rural '+r.r.toFixed(1)+' · urban '+r.u.toFixed(1);
+    });
+  })();
+
+  /* Tiles */
+  (function(){
+    var d=[['Abay','2','w'],['Akmola','*','n'],['Aktobe','0','w'],['Almaty region','5','w'],['Atyrau','7','w'],['West Kazakhstan','*','n'],['Zhambyl','1','w'],['Zhetysu','6','w'],['Karaganda','*','n'],['Kostanay','*','n'],['Kyzylorda','3','w'],['Mangystau','0','w'],['Pavlodar','7','w'],['North Kazakhstan','*','n'],['Turkistan','5','o'],['Ulytau','3','w'],['East Kazakhstan','*','n'],['Astana','0','w'],['Almaty city','*','n'],['Shymkent','1','w']];
+    var box=document.getElementById('tiles'); if(!box)return;
+    d.forEach(function(r){var t=document.createElement('div');t.className='tile '+(r[2]==='n'?'t-none':r[2]==='w'?'t-warn':'t-ok');
+      t.innerHTML='<b>'+r[0]+'</b><span>'+(r[1]==='*'?'no estimate':r[1]+' per 1,000')+'</span>';box.appendChild(t);});
+  })();
+
+  /* MMR bars */
+  (function(){
+    var s=document.getElementById('mmr'); if(!s)return; var f='Golos Text, sans-serif';
+    var data=[['2019',13.7],['2020',36.5],['2021',44.7],['2022',14.1],['2023',9.6],['2024',10.1],['2025',null,'not yet published']];
+    var h=function(v){return v/50*200};
+    el('line',{x1:40,y1:230,x2:880,y2:230,stroke:'#C9D6DC'},s);
+    data.forEach(function(d,i){
+      var cx=95+i*118,bw=70;
+      if(d[1]===null){el('rect',{x:cx-bw/2,y:150,width:bw,height:80,fill:'none',stroke:'#C9D6DC','stroke-dasharray':'5 5',rx:6},s);d[2].split(' ').reduce(function(a,w,k,arr){if(k===0)return [w];var last=a[a.length-1];if((last+' '+w).length<=9)a[a.length-1]=last+' '+w;else a.push(w);return a;},[]).forEach(function(line,k){var n=el('text',{x:cx,y:186+k*16,'text-anchor':'middle','font-size':13,fill:'#3B5163','font-family':f},s);n.textContent=line;});}
+      else{var col=(d[0]==='2020'||d[0]==='2021')?'#C93A33':'#1C8FC9';el('rect',{x:cx-bw/2,y:230-h(d[1]),width:bw,height:h(d[1]),fill:col,rx:6},s);var v=el('text',{x:cx,y:222-h(d[1]),'text-anchor':'middle','font-size':15,'font-weight':600,fill:'#10263A','font-family':f},s);v.textContent=d[1];}
+      var l=el('text',{x:cx,y:252,'text-anchor':'middle','font-size':13,fill:'#3B5163','font-family':f},s);l.textContent=d[0];
+    });
+    var note=el('text',{x:880,y:20,'text-anchor':'end','font-size':12,fill:'#3B5163','font-family':f},s);note.textContent='red = COVID-19 years';
+  })();
+
+
+  /* Contacts timeline */
+  (function(){var sv=document.getElementById('contacts');if(!sv)return;var f='Golos Text, sans-serif';
+    var X=function(w){return 120+w/92*860};
+    var lanes=[['Mother',75],['Baby',175]];
+    lanes.forEach(function(l){var t=el('text',{x:0,y:l[1]+5,'font-size':15,'font-weight':600,fill:'#10263A','font-family':f},sv);t.textContent=l[0];});
+    var gapM=el('rect',{x:X(0),y:72,width:X(40)-X(0),height:6,rx:3,fill:'#E2A70B',opacity:.85},sv);
+    var gapB=el('rect',{x:X(40),y:172,width:X(92)-X(40),height:6,rx:3,fill:'#E2A70B',opacity:.85},sv);
+    el('line',{x1:X(40),y1:40,x2:X(40),y2:210,stroke:'#10263A','stroke-dasharray':'3 4'},sv);
+    var bl=el('text',{x:X(40),y:32,'text-anchor':'middle','font-size':13,'font-weight':600,fill:'#10263A','font-family':f},sv);bl.textContent='Birth';
+    [['Pregnancy',X(20)],['First year',X(66)]].forEach(function(p){var t=el('text',{x:p[1],y:238,'text-anchor':'middle','font-size':13,fill:'#3B5163','font-family':f},sv);t.textContent=p[0];});
+    var marks=[];
+    [8,14,20,24,28,32,36,39].forEach(function(w){marks.push([w,el('circle',{cx:X(w),cy:75,r:8,fill:'#1C8FC9'},sv)])});
+    [11,30].forEach(function(w){marks.push([w,el('circle',{cx:X(w),cy:75,r:7,fill:'#fff',stroke:'#1C8FC9','stroke-width':3},sv)])});
+    marks.push([40,el('rect',{x:X(40)-7,y:62,width:14,height:126,rx:4,fill:'#10263A'},sv)]);
+    marks.push([40.8,el('circle',{cx:X(41.2),cy:175,r:7,fill:'#fff',stroke:'#1C8FC9','stroke-width':3},sv)]);
+    for(var k=1;k<=12;k++){var w=40+k*52/12;marks.push([w,el('circle',{cx:X(w),cy:175,r:8,fill:'#1C8FC9'},sv)])}
+    var gl=el('text',{x:X(66),y:205,'text-anchor':'middle','font-size':12.5,fill:'#8A6A00','font-family':f},sv);gl.textContent='about 4 weeks between check-ups';
+    if(!reduce){marks.forEach(function(m){m[1].style.opacity=0;m[1].style.transition='opacity .35s'});gapM.setAttribute('width',0);gapB.setAttribute('width',0);gl.style.opacity=0;gl.style.transition='opacity .5s';
+      var io=('IntersectionObserver' in window)?new IntersectionObserver(function(es){if(es[0].isIntersecting){go();io.disconnect();}},{threshold:.4}):null;
+      function go(){var W1=X(40)-X(0),W2=X(92)-X(40),st=null;requestAnimationFrame(function step(t){if(!st)st=t;var p=Math.min(1,(t-st)/2200);gapM.setAttribute('width',(W1*Math.min(1,p*2)).toFixed(1));gapB.setAttribute('width',(W2*Math.max(0,p*2-1)).toFixed(1));
+          marks.forEach(function(m){if(m[0]/92<=p+0.01)m[1].style.opacity=1});if(p<1)requestAnimationFrame(step);else gl.style.opacity=1;});}
+      if(io)io.observe(sv);else go();}
+  })();
+
+  /* Today vs Ana */
+  var SC={
+    fever:{q:'My baby is 3 weeks old and has a temperature of 38.2. It is 1 a.m. What should I do?',
+      gen:'A temperature of 38°C or higher in a baby under 3 months needs urgent medical attention, even if she seems well. Please call your local emergency number or go to the nearest emergency department now. Don\'t give fever medicine unless a doctor tells you to.',
+      genN:[['good','Medically sound: it knows the rule'],['bad','Then the conversation ends: nobody is alerted'],['bad','Doesn\'t know her polyclinic or what happened next']],
+      ana:'A temperature of 38°C or higher in a baby under 3 months needs a doctor now. Please call 103 and give your address and a landmark. I have alerted the nurse desk: a nurse will call you back.',anaC:'red',anaT:'Red flag · call 103',
+      anaN:[['good','Same medical advice'],['good','A nurse calls back and stays on the line'],['good','Polyclinic told; Ana follows up tomorrow']]},
+    memory:{q:'My son is 11 months old. He has had a runny nose for two days, but he eats and plays as usual and has no fever. Should I worry?',
+      gen:'A runny nose without fever in a baby who is eating and playing normally is most often a common cold. Saline drops can help him feed and sleep. See a doctor if he develops a fever, breathes fast or with effort, feeds much less than usual, or seems unusually sleepy.',
+      genN:[['good','Safe, standard advice'],['bad','The history stays in her chat, not with a nurse'],['bad','If he gets worse at night, help starts from zero']],
+      ana:'That sounds like a common cold: no fever, and he is eating and playing. Saline drops can help him feed. Call 103 straight away if his breathing becomes fast, noisy or hard work, or if he stops drinking. See your polyclinic if he gets a fever or is not getting better. I have noted it in his history: runny nose, day 2, no fever.',anaC:'',anaT:'Green · noted in his history',
+      anaN:[['good','Same safe advice, with clear danger signs'],['good','Noted: this is the history the nurse saw at 02:40, above']]},
+    pregnancy:{q:'I am 34 weeks pregnant. I have had a bad headache since this afternoon and things look blurry. Is it just tiredness?',
+      gen:'A severe headache with blurred vision at 34 weeks can be a sign of preeclampsia, which needs urgent assessment. Please contact your doctor or go to a hospital now. Call emergency services if you also have chest pain, trouble breathing or a seizure.',
+      genN:[['good','Recognizes the danger sign'],['bad','If she waits until morning, nobody knows'],['bad','Can\'t say which maternity hospital she is registered with']],
+      ana:'A severe headache with blurred vision late in pregnancy can be a sign of high blood pressure that needs checking now. Please call 103 or go to your maternity hospital. I have alerted the nurse desk: a nurse will call to check you are on your way.',anaC:'red',anaT:'Red flag · call 103',
+      anaN:[['good','Same warning'],['good','A nurse checks she actually goes'],['good','Can tell her which polyclinic she is attached to']]}
+  };
+  var chips=[].slice.call(document.querySelectorAll('.chips button[data-sc]')),vsTimers=[];
+  function bubble(box,cls,html,tag){var d=document.createElement('div');d.className='msg '+cls;d.innerHTML=(tag?'<span class="tag">'+tag+'</span>':'')+html;box.appendChild(d);return d;}
+  function typing(box){var d=document.createElement('div');d.className='msg bot';d.innerHTML='<span class="typing"><i></i><i></i><i></i></span>';box.appendChild(d);return d;}
+  function notes(box,list,delay){list.forEach(function(n,i){var e=document.createElement('div');e.className='note '+n[0];e.textContent=(n[0]==='bad'?'✗ ':'✓ ')+n[1];box.appendChild(e);vsTimers.push(setTimeout(function(){e.classList.add('show')},reduce?0:delay+i*450));});}
+  chips.forEach(function(c){c.addEventListener('click',function(){
+    chips.forEach(function(x){x.setAttribute('aria-pressed','false')});c.setAttribute('aria-pressed','true');
+    vsTimers.forEach(clearTimeout);vsTimers=[];var k=SC[c.getAttribute('data-sc')];
+    ['gen','ana'].forEach(function(side){
+      var box=document.getElementById(side+'Msgs'),nb=document.getElementById(side+'Notes');box.innerHTML='';nb.innerHTML='';
+      bubble(box,'me',k.q);var t=reduce?null:typing(box);
+      vsTimers.push(setTimeout(function(){if(t)t.remove();
+        if(side==='gen')bubble(box,'bot',k.gen);else bubble(box,'bot '+k.anaC,k.ana,k.anaT);
+      },reduce?0:1300));
+      notes(nb,side==='gen'?k.genN:k.anaN,1500);
+    });
+  });});
+
+
+  /* Staffing calculator (Erlang C) */
+  (function(){var root=document.getElementById('staffcalc');if(!root)return;
+    function g(id){return document.getElementById(id)}
+    function fact(n){var r=1;for(var k=2;k<=n;k++)r*=k;return r}
+    function erlangC(N,A){var sum=0,term=1;for(var k=0;k<N;k++){if(k>0)term*=A/k;sum+=term;}term*=A/N;var top=term*N/(N-A);return top/(sum+top)}
+    function fmt(n){return Math.round(n).toLocaleString('en-US')}
+    function upd(){var u=+g('c_users').value,m=+g('c_msgs').value,r=+g('c_red').value/100,T=+g('c_min').value;
+      g('o_users').textContent=fmt(u);g('o_msgs').textContent=m;g('o_red').textContent=Math.round(r*100);g('o_min').textContent=T+' min';
+      var perDay=u*r/30,lam=perDay/24*1.5/60,A=lam*T,N=Math.max(2,Math.floor(A)+1);
+      for(var guard=0;guard<500;guard++){if(N>A){var p=erlangC(N,A)*Math.exp(-(N-A)*5/T);if(1-p>=0.9)break;}N++;}
+      var fte=N*5,cost=fte*264600*12;
+      g('r_calls').textContent=fmt(perDay);g('r_q').textContent=fmt(u*m/30);g('r_shift').textContent=N;g('r_fte').textContent=fte;g('r_cost').textContent='₸'+(cost/1e6).toFixed(0)+' million';
+      var k=g('kpiNurses');if(k)k.textContent=fte;var ks=g('kpiShort');if(ks)ks.textContent=(fte/4231*100).toFixed(2)+'%';var ka=g('kpiAll');if(ka)ka.textContent=(fte/191728*100).toFixed(3)+'%';}
+    ['c_users','c_msgs','c_red','c_min'].forEach(function(id){g(id).addEventListener('input',upd)});upd();
+  })();
+  /* Stepper */
+  var STEPS=[
+    '<div class="who">Mother\'s phone · typed in Kazakh</div><div class="msgs"><div class="msg me">My son is 11 months old. He woke up with a barking cough and he breathes noisily, with a whistle, even when he is calm.</div></div>',
+    '<div class="who">Ana</div><div class="msgs"><div class="msg bot red"><span class="tag">Red flag · call 103</span>Noisy breathing while he is calm can mean his airway is narrowing. He needs a doctor now. Please call 103 and tell them your address, a landmark and your phone number. Keep him calm and upright in your arms. A nurse will call you back.</div></div>',
+    '<div class="who">Remote nurse desk (in a city) · case card</div><dl class="card-case"><dt>Flag</dt><dd>Barking cough, noisy breathing at rest, 11 months</dd><dt>Attached polyclinic (from registration, with consent)</dt><dd>Village medical post and district polyclinic, Akmola region</dd><dt>Where she is now</dt><dd>Ana told her to give 103 her address, a landmark and her phone number</dd><dt>History from chats</dt><dd>Runny nose for 2 days (green, Mon) · vaccinations up to date (logged at 9 months) · no known allergies</dd><dt>Told to mother</dt><dd>Call 103 (02:40)</dd></dl><p class="small" style="margin-top:.6rem">With a hotline, the mother would have to explain all of this herself, at 3 a.m.</p>',
+    '<div class="who">Remote nurse, by phone</div><div class="msgs"><div class="msg bot amber"><span class="tag">A human takes over</span>Confirms the ambulance is on its way, stays on the line and guides the mother until it arrives, and alerts the district hospital.</div></div><p class="small">The nurse, not the AI, makes every decision from here.</p>',
+    '<div class="who">Village medical post · morning list</div><dl class="card-case" style="background:#F4FAFD;border-color:#A9D3EA"><dt>Overnight red flag</dt><dd>Child taken by ambulance at 03:05 to the district hospital</dd><dt>Overnight amber flags</dt><dd>2 families: see this week</dd><dt>For</dt><dd>The patronage nurse or feldsher of the area</dd></dl><p class="small" style="margin-top:.6rem">She starts the day knowing what happened, without anyone phoning her at night.</p>',
+    '<div class="who">Next day · two possible endings</div><dl class="card-case" style="background:#fff;border-color:var(--mist)"><dt>If he is admitted</dt><dd>The hospital takes over. Ana pauses.</dd><dt>If he is sent home</dt><dd>The local nurse reads the card and decides whether to call or visit; nothing is automatic. Ana keeps the illness log, so the next doctor sees what changed.</dd></dl>'
+  ];
+  var cur=0,sl=[].slice.call(document.querySelectorAll('#steplist li')),scr=document.getElementById('screen');
+  function show(i){cur=Math.max(0,Math.min(STEPS.length-1,i));scr.innerHTML=STEPS[cur];sl.forEach(function(l,j){l.className=j<cur?'done':j===cur?'active':'';});
+    document.getElementById('nextStep').textContent=cur===STEPS.length-1?'Start again':'Next step';}
+  if(scr){show(0);document.getElementById('nextStep').addEventListener('click',function(){show(cur===STEPS.length-1?0:cur+1)});document.getElementById('prevStep').addEventListener('click',function(){show(cur-1)});sl.forEach(function(l,j){l.addEventListener('click',function(){show(j)})});}
+
+
+  /* Illness log */
+  (function(){var card=document.getElementById('illcard');if(!card)return;
+    var BASE=[['18:10','vomit'],['18:55','vomit'],['19:30','wet'],['20:15','stool'],['20:40','vomit'],['21:30','drink',50],['22:05','stool'],['23:40','temp',38.9],['23:45','med'],['00:20','vomit'],['00:50','drink',40],['01:10','flag'],['01:10','vomit'],['01:55','vomit'],['02:05','stool']];
+    var LAB={vomit:'Vomited',stool:'Loose stool',wet:'Wet diaper',drink:'Drank',temp:'Temperature',med:'Fever medicine given (dose as on the label)',flag:'Ana: no wet diaper for over 5 hours and vomiting keeps coming back, possible dehydration, go to hospital'};
+    var log,now;function toMin(t){var p=t.split(':'),h=+p[0],m=+p[1];if(h<12)h+=24;return h*60+m}
+    function fmt(m){m=((m%1440)+1440)%1440;var h=Math.floor(m/60),mi=m%60;return (h<10?'0':'')+h+':'+(mi<10?'0':'')+mi}
+    function ago(d){var h=Math.floor(d/60),m=d%60;return (h?h+' h ':'')+m+' min ago'}
+    function reset(){log=BASE.map(function(e){return {t:toMin(e[0]),k:e[1],v:e[2]}});now=toMin('02:10');render(false);}
+    function render(flash){
+      var c=function(k){return log.filter(function(e){return e.k===k})};
+      var v=c('vomit'),st=c('stool'),tp=c('temp'),dr=c('drink'),wt=c('wet'),md=c('med');
+      var maxT=tp.reduce(function(a,e){return e.v>a.v?e:a},{v:0,t:0});
+      var fl=dr.reduce(function(a,e){return a+e.v},0);
+      var lastWet=wt.length?wt[wt.length-1].t:null;
+      var rows=[
+        ['Vomiting',v.length+' times since '+fmt(v[0]?v[0].t:now)+(v.length?', last at '+fmt(v[v.length-1].t):'')],
+        ['Loose stools',st.length+(st.length?', last at '+fmt(st[st.length-1].t):'')],
+        ['Highest temperature',maxT.v?maxT.v.toFixed(1)+'°C at '+fmt(maxT.t):'not measured'],
+        ['Fever medicine',md.length?md.map(function(e){return fmt(e.t)}).join(', '):'none'],
+        ['Drinks','about '+fl+' ml since '+fmt(log[0].t)],
+        ['Last wet diaper',lastWet===null?'none logged':fmt(lastWet)+' ('+ago(now-lastWet)+')']];
+      card.innerHTML='<div style="font-weight:600;margin-bottom:.3rem">For the doctor, at '+fmt(now)+'</div>'+rows.map(function(r){return '<div class="sline"><b>'+r[0]+':</b> '+r[1]+'</div>'}).join('');
+      document.getElementById('illclock').textContent='Tonight · now '+fmt(now)+' · tap to add an event';
+      document.getElementById('illtl').innerHTML=log.slice().reverse().map(function(e){return '<div>'+fmt(e.t)+' · '+LAB[e.k]+(e.k==='drink'?' ~'+e.v+' ml':'')+(e.k==='temp'?' '+e.v.toFixed(1)+'°C':'')+'</div>'}).join('');
+      if(flash&&!reduce){card.style.transition='none';card.style.background='#FFF3CC';requestAnimationFrame(function(){card.style.transition='background 1s';card.style.background='#F4FAFD';});}
+    }
+    [].slice.call(document.querySelectorAll('#illlog [data-ev]')).forEach(function(b){b.addEventListener('click',function(){
+      now+=10;var k=b.getAttribute('data-ev'),e={t:now,k:k};if(k==='drink')e.v=30;if(k==='temp')e.v=+(38+Math.random()*1.1).toFixed(1);log.push(e);render(true);});});
+    document.getElementById('illreset').addEventListener('click',reset);reset();})();
+
+  /* ---------- motion on scroll ---------- */
+  if(!reduce) document.documentElement.classList.add('anim');
+  function onView(el,cb,th){if(!el)return;if(reduce||!('IntersectionObserver' in window)){cb();return;}
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){cb();io.disconnect();}})},{threshold:th||.3});io.observe(el);}
+  function tween(dur,fn,done){if(reduce){fn(1);if(done)done();return;}var st=null;requestAnimationFrame(function step(t){if(!st)st=t;var p=Math.min(1,(t-st)/dur),e=1-Math.pow(1-p,3);fn(e);if(p<1)requestAnimationFrame(step);else if(done)done();});}
+  function stagger(list,attrDelay){list.forEach(function(el,i){el.style.transitionDelay=(i*attrDelay)+'ms';});}
+
+  /* counters */
+  [].slice.call(document.querySelectorAll('.kpis strong,.tally strong')).forEach(function(el){
+    var raw=el.textContent,m=raw.match(/([\d,]+)/);if(!m)return;var target=parseInt(m[1].replace(/,/g,''),10),pre=raw.slice(0,m.index),suf=raw.slice(m.index+m[1].length);
+    if(!reduce)el.textContent=pre+'0'+suf;
+    onView(el,function(){tween(1400,function(e){el.textContent=pre+Math.round(target*e).toLocaleString('en-US')+suf;});},.6);
+  });
+
+  /* 30-day strip + visit dots */
+  [].slice.call(document.querySelectorAll('.vdots')).forEach(function(row){var ds=[].slice.call(row.querySelectorAll('i'));stagger(ds,70);onView(row,function(){row.classList.add('in');},.6);});
+
+  /* tiles, learn, receipt, verdict */
+  var tl=document.getElementById('tiles');if(tl){onView(tl,function(){stagger([].slice.call(tl.children),55);tl.classList.add('in');});}
+  var ln=document.querySelector('.learn');if(ln){stagger([].slice.call(ln.children),180);onView(ln,function(){ln.classList.add('in');},.4);}
+  var rc=document.querySelector('.receipt');if(rc){var lines=[].slice.call(rc.querySelectorAll('.line,.total'));stagger(lines,260);
+    [].slice.call(rc.querySelectorAll('.meter i')).forEach(function(m,i){m.style.transitionDelay=(300+Math.floor(i/3)*260)+'ms';});onView(rc,function(){rc.classList.add('in');},.35);}
+  [['.delays','.delay',250],['.apprgrid','.appr',180],['.converge','.conv-chips span',120],['.silgrid','.silence',120]].forEach(function(c){var g=document.querySelector(c[0]);if(!g)return;stagger([].slice.call(g.querySelectorAll(c[1])),c[2]);onView(g,function(){g.classList.add('in');},.2);});
+  var vg=document.querySelector('.village');if(vg){var vs=[].slice.call(vg.querySelectorAll('.vstep'));stagger(vs,350);onView(vg,function(){vg.classList.add('in');},.3);}
+  var tg=document.querySelector('.trustgrid');if(tg){stagger([].slice.call(tg.children),180);onView(tg,function(){tg.classList.add('in');},.2);}
+  var tt=document.getElementById('turnto');if(tt){stagger([].slice.call(tt.querySelectorAll('.tcard')),250);onView(tt,function(){tt.classList.add('in');},.25);}
+  var cl=document.getElementById('closing');if(cl)onView(cl,function(){cl.classList.add('in');},.4);
+  var vd=document.getElementById('verdict');if(vd){stagger([].slice.call(vd.querySelectorAll('ol li')),160);[].slice.call(vd.querySelectorAll('ol li')).forEach(function(li){li.style.transitionDelay=(parseInt(li.style.transitionDelay)+500)+'ms';});onView(vd,function(){vd.classList.add('in');},.25);}
+
+  /* Figure 1: bars grow, markers drop in */
+  var db=document.getElementById('dumbbell');
+  if(db&&!reduce){var rects=[].slice.call(db.querySelectorAll('rect[rx="9"]')),marks=[].slice.call(db.querySelectorAll('circle, rect[width="3"]'));
+    var DW=rects.map(function(r){return +r.getAttribute('width')});rects.forEach(function(r){r.setAttribute('width',0)});marks.forEach(function(m){m.style.opacity=0;m.style.transition='opacity .5s'});
+    onView(db,function(){tween(1100,function(e){rects.forEach(function(r,i){r.setAttribute('width',(DW[i]*e).toFixed(1))})},function(){marks.forEach(function(m,i){setTimeout(function(){m.style.opacity=1},i*90)})});},.4);}
+
+  /* Figure 3: bars grow */
+  var mm=document.getElementById('mmr');
+  if(mm&&!reduce){var bars=[].slice.call(mm.querySelectorAll('rect:not([fill="none"])')),H=bars.map(function(r){return +r.getAttribute('height')});
+    bars.forEach(function(r){r.setAttribute('y',230);r.setAttribute('height',0)});var vals=[].slice.call(mm.querySelectorAll('text[font-weight="600"]'));vals.forEach(function(t){t.style.opacity=0;t.style.transition='opacity .4s'});
+    onView(mm,function(){tween(1200,function(e){bars.forEach(function(r,i){var h=H[i]*e;r.setAttribute('height',h.toFixed(1));r.setAttribute('y',(230-h).toFixed(1))})},function(){vals.forEach(function(t){t.style.opacity=1})});},.4);}
+
+  /* slope chart draws */
+  var sl2=document.getElementById('slope');
+  if(sl2&&!reduce){var ls=[].slice.call(sl2.querySelectorAll('line[stroke-width="3"]'));ls.forEach(function(l){var len=170;l.style.strokeDasharray=len;l.style.strokeDashoffset=len;l.style.transition='stroke-dashoffset 1.2s ease-out'});
+    onView(sl2,function(){ls.forEach(function(l){l.style.strokeDashoffset=0})},.5);}
+
+  /* Stepper: autoplay + clock */
+  var clock=document.getElementById('clock'),times=[].slice.call(document.querySelectorAll('#steplist time')).map(function(t){return t.textContent}),auto=null;
+  var mins=sl.map(function(l){return +l.dataset.m}),parts=sl.map(function(l){return l.dataset.part});
+  var hh=document.getElementById('hh'),mh=document.getElementById('mh'),dp=document.getElementById('daypart'),np=document.getElementById('nightpanel');
+  var tk=document.querySelector('.aclock .ticks');if(tk){for(var q=0;q<12;q++){var tkl=document.createElementNS('http://www.w3.org/2000/svg','line');tkl.setAttribute('x1',50);tkl.setAttribute('y1',8);tkl.setAttribute('x2',50);tkl.setAttribute('y2',q%3?12:15);tkl.setAttribute('transform','rotate('+q*30+' 50 50)');tk.appendChild(tkl);}}
+  function setHands(){if(!hh)return;var m=mins[cur];hh.style.transform='rotate('+(m/720*360)+'deg)';mh.style.transform='rotate('+(m*6)+'deg)';
+    if(dp)dp.textContent=parts[cur];if(np)np.classList.toggle('night',parts[cur]==='Night');}
+  var _show=show;show=function(i){_show(i);if(clock){clock.textContent=times[cur];clock.classList.remove('tick');void clock.offsetWidth;clock.classList.add('tick');}setHands();};
+  if(clock)show(0);
+  function stopAuto(){if(auto){clearInterval(auto);auto=null;var b=document.getElementById('playNight');if(b)b.textContent='▶ Play the night';}}
+  var pn=document.getElementById('playNight');
+  if(pn){pn.addEventListener('click',function(){if(auto){stopAuto();return;}show(0);pn.textContent='❚❚ Pause';auto=setInterval(function(){if(cur>=STEPS.length-1){stopAuto();return;}show(cur+1);},2600);});
+    ['nextStep','prevStep'].forEach(function(id){document.getElementById(id).addEventListener('click',stopAuto,true)});
+    sl.forEach(function(l){l.addEventListener('click',stopAuto,true)});}
+})();
+</script>
+</body>
+</html>
